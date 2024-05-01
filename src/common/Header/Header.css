@@ -7,3 +7,23 @@
     justify-content: flex-end;
     align-items: flex-end;
 }
+
+.outDesign {
+    color: white;
+    font-weight: bold;
+
+    margin: 1em;
+    transition: 0.3s;
+
+}
+
+.navigatorDesign {
+    display: flex;
+    flex-direction: row;
+}
+
+.outDesign:hover {
+    transition: 0.3s;
+    color: black;
+    cursor: pointer;
+}
