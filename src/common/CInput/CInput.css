@@ -1,0 +1,18 @@
+.inputDesign {
+    height: 5vh;
+    width: 10em;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    border: 0.01em dashed whitesmoke;
+    margin: 0.25em 1em 1em 1em;
+    padding-left: 1em;
+    border-radius: 0.5em;
+    font-size: large;
+    background-color: black;
+    color: whitesmoke;
+}
+
+.inputDesignError {
+    color: darkred
+}

@@ -13,7 +13,7 @@ import { useDispatch } from "react-redux";
 export const Login = () => {
 
     const navigate = useNavigate();
-    const dispatch = useDispatch(); //instancia de redux para escritura
+    const dispatch = useDispatch(); 
 
     const [user, setUser] = useState({
         email: "",
@@ -27,35 +27,41 @@ export const Login = () => {
     }
 
     const loginMe = async () => {
-        const fetched = await LoginUser(user)
-        if (fetched.token) {
-            // Hacer la petición a /profile
-            const profile = await GetUserProfile(fetched.token);
-            console.log(profile);  // Imprimir la respuesta
+        try {
+            const fetched = await LoginUser(user);
+            if (fetched.token) {
+                // Hacer la petición a /profile
+                const profile = await GetUserProfile(fetched.token);
+                console.log(profile);  
     
-            // Guardar los datos del perfil en el estado de Redux
-            const passport = {
-                token: fetched.token,
-                user: profile.data,  // Aquí estamos guardando los datos del perfil
+                // Guardar los datos del perfil en el estado de Redux
+                const passport = {
+                    token: fetched.token,
+                    user: profile.data,  
+                }
+                dispatch(login({ credentials: passport }))
+    
+                setTimeout(() => {
+                    navigate("/")
+                }, 2000);
             }
-            dispatch(login({ credentials: passport }))
-    
-            setTimeout(() => {
-                navigate("/")
-            }, 2000);
+        } catch (error) {
+            setMsgError(error.message);
         }
-    }
+    }   
     return (
         <div className="loginDesign">
             <CInput
                 type="email"
                 name="email"
+                placeholder={"Email"}
                 value={user.email || ""}
                 changeEmit={inputHandler}
             />
             <CInput
                 type="password"
                 name="password"
+                placeholder={"Password"}
                 value={user.password || ""}
                 changeEmit={inputHandler}
             />
