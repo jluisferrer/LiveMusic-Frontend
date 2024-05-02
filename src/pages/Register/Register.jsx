@@ -46,7 +46,7 @@ export const Register = () => {
         try {
             for (let elemento in user) {
                 if (user[elemento] === "") {
-                    throw new Error("All fields are requiredFRONT");
+                    throw new Error("All fields are required");
                 }
             }
 
