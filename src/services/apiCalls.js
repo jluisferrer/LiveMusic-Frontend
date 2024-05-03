@@ -64,11 +64,13 @@ export const RegisterUser = async (user) => {
     }
 }
 
-export const GetEvents = async () => {
+export const GetEvents = async (token) => {
     const options = {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,  // Usa el token del usuario
+
         },
     }
     try {
