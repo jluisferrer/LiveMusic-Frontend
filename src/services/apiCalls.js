@@ -1,4 +1,5 @@
 const root = "http://localhost:8000/api/";
+import store from "../app/store";
 
 export const LoginUser = async (user) => {
     const options = {
@@ -72,6 +73,30 @@ export const GetEvents = async () => {
     }
     try {
         const response = await fetch(`${root}events`, options)
+        const data = await response.json()
+
+        if (!data.success) {
+            throw new Error(data.message)
+        }
+        return data;
+    } catch (error) {
+        return error
+    }
+}
+
+export const GetUserEvents = async () => {
+    const state = store.getState();  // Obtiene el estado actual de Redux
+    const token = state.user.token;  // Obtiene el token del usuario
+
+    const options = {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,  // Usa el token del usuario
+        },
+    }
+    try {
+        const response = await fetch(`${root}usergroupevents`, options)
         const data = await response.json()
 
         if (!data.success) {

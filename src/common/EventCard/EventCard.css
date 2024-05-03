@@ -1,0 +1,26 @@
+.eventCard {
+    background-color: #222;
+    color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    width: 300px;
+}
+
+.eventCard:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.eventCard h2 {
+    color: #ff4081;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.eventCard p {
+    color: #ddd;
+    font-size: 18px;
+    line-height: 1.6;
+}

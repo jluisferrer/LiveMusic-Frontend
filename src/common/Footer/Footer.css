@@ -1,7 +1,7 @@
 .footerDesign {
     height: 8vh;
     width: 100vw;
-    background-color: rgb(1, 1, 198);
+    background-color: #1DB954;
     color: white;
     display: flex;
     flex-direction: column;
