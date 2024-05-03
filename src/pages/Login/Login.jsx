@@ -3,7 +3,6 @@ import { CInput } from "../../common/CInput/CInput";
 import { GetUserProfile, LoginUser } from "../../services/apiCalls";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { decodeToken } from "react-jwt";
 import { login } from "../../slices/userSlice";
 import { useDispatch } from "react-redux";
 
@@ -57,6 +56,7 @@ export const Login = () => {
                 placeholder={"Email"}
                 value={user.email || ""}
                 changeEmit={inputHandler}
+                // onBlurFunction={(e) => checkError(e)}
             />
             <CInput
                 type="password"
@@ -64,6 +64,7 @@ export const Login = () => {
                 placeholder={"Password"}
                 value={user.password || ""}
                 changeEmit={inputHandler}
+                // onBlurFunction={(e) => checkError(e)}
             />
             <button onClick={loginMe}>Login</button>
         </div>
