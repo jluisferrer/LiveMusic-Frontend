@@ -1,5 +1,4 @@
 const root = "http://localhost:8000/api/";
-import store from "../app/store";
 
 export const LoginUser = async (user) => {
     const options = {
@@ -86,9 +85,7 @@ export const GetEvents = async (token) => {
     }
 }
 
-export const GetUserEvents = async () => {
-    const state = store.getState();  // Obtiene el estado actual de Redux
-    const token = state.user.token;  // Obtiene el token del usuario
+export const GetUserEvents = async (token) => {
 
     const options = {
         method: "GET",
