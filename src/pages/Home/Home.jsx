@@ -16,14 +16,20 @@ export const Home = () => {
                 try {
                     const fetched = await GetEvents(user.token);
                     console.log(fetched.data, "fetched");
-                    setEvents(fetched.data);
+                    if (fetched.data) {
+                        setEvents(fetched.data);
+                    } else {
+                        setEvents([]); 
+                    }
                 } catch (error) {
-
+                    console.error(error);
+                    setEvents([]);
                 }
             }
             bringEvents();
         }
     }, [user]);
+
 
     if (!user) {
         return (
