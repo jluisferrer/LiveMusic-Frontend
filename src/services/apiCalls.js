@@ -199,10 +199,32 @@ export const createEvent = async (event, token) => {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`,
         },
-        body: JSON.stringify(event),  // Convierte el objeto en un string JSON
+        body: JSON.stringify(event),  
     };
     try {
         const response = await fetch(`${root}events`, options);
+        const data = await response.json();
+
+        if (!data.success) {
+            throw new Error(data.message);
+        }
+        return data;
+    } catch (error) {
+        return error;
+    }
+}
+
+export const updateEvent = async (enventId, eventData, token) => {
+    const options = {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+        },
+        body: JSON.stringify(eventData),  
+    };
+    try {
+        const response = await fetch(`${root}events/${enventId}`, options);
         const data = await response.json();
 
         if (!data.success) {
