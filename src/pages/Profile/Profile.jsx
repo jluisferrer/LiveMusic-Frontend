@@ -3,11 +3,10 @@ import "./Profile.css"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router"
 import { useEffect, useState } from "react"
-import ProfileCard from "../../common/ProfileCard/ProfileCard"
-import { GetUserEvents } from "../../services/apiCalls"
+import { GetUserEvents, deleteUserEvent } from "../../services/apiCalls"
 import EventCard from "../../common/EventCard/EventCard"
 import { CInput } from "../../common/CInput/CInput"
-import userSlice, { login } from "../../slices/userSlice"
+import { login } from "../../slices/userSlice"
 
 export const Profile = () => {
     const [userEvents, setUserEvents] = useState([]);
@@ -18,7 +17,7 @@ export const Profile = () => {
     const [name, setName] = useState(user ? user.user.name : "");
     const [email, setEmail] = useState(user ? user.user.email : "");
     const [password, setPassword] = useState(user ? user.user.password : "");
-    
+
     const handleNameChange = (e) => {
         setName(e.target.value);
     };
@@ -81,8 +80,24 @@ export const Profile = () => {
         // Actualiza el nombre y el correo electrónico cuando cambia el usuario en el estado
         setName(user ? user.user.name : "");
         setEmail(user ? user.user.email : "");
-        setPassword(user ? user.user.password :"");
+        setPassword(user ? user.user.password : "");
     }, [user]);
+
+    const removeUserEvent = async (eventId) => {
+        try {
+            const response = await deleteUserEvent(eventId, user.token);
+            if (response.success) {
+                // Actualizar la lista de eventos del usuario después de eliminar el evento
+                const updatedEvents = userEvents.filter((event) => event.id !== eventId);
+                setUserEvents(updatedEvents);
+                console.log("Event removed successfully");
+            } else {
+                console.error(response.message);
+            }
+        } catch (error) {
+            console.error("Error removing event:", error);
+        }
+    };
 
     return (
         <div className="profileDesign">
@@ -117,9 +132,12 @@ export const Profile = () => {
                     </button>
                 </>
             )}
-          {userEvents.map((event, index) => (
-                <EventCard key={`${event.id}-${index}`} event={event}
-                 />
+            {userEvents.map((event, index) => (
+                <div>
+                    <EventCard key={`${event.id}-${index}`} event={event}
+                    />
+                    <button onClick={() => removeUserEvent(event.id)}>Remove</button>
+                </div>
             ))}
         </div>
     )
