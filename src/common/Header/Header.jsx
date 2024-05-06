@@ -21,6 +21,11 @@ export const Header = () => {
                 <div className="navigatorDesign">
                     {/* Mostrar el nombre del usuario */}
                     <CLink path="/profile" title={rdxUser?.credentials?.user?.name} />
+                    {rdxUser.credentials.user.role === "super_admin" ? (
+              <div>
+                <CLink path={"/admin"} title={"ADMIN"} />
+              </div>
+            ) : null}
                     <div
                         className="outDesign"
                         onClick={() => {
