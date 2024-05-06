@@ -5,6 +5,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { GetEvents, GetUserEvents } from "../../services/apiCalls";
 import  EventCard  from "../../common/EventCard/EventCard.jsx";
+import { JoinEvent } from "../../services/apiCalls";
 
 
 export const Home = () => {
@@ -30,6 +31,14 @@ export const Home = () => {
         }
     }, [user]);
 
+    const joinUserEvent = async (eventId) => {
+        try {
+            const fetched = await JoinEvent(eventId, user.token);
+            console.log(fetched, "fetched join event");
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     if (!user) {
         return (
@@ -44,7 +53,10 @@ export const Home = () => {
     return (
         <div className="homeDesign">
             {events.map(event => (
-                <EventCard key={event.id} event={event} />
+                <div key={event.id}>
+                <EventCard event={event} />
+                <button onClick={() => joinUserEvent(event.id)}>Unirse</button>
+            </div>
             ))}
         </div>
     );
