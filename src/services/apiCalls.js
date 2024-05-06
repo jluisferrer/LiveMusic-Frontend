@@ -85,6 +85,27 @@ export const RegisterUser = async (user) => {
     }
 }
 
+export const deleteUser = async (userId, token) => {
+    const options = {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+        },
+    }
+    try {
+        const response = await fetch(`${root}users/${userId}`, options)
+        const data = await response.json()
+
+        if (!data.success) {
+            throw new Error(data.message)
+        }
+        return data;
+    } catch (error) {
+        return error
+    }
+}
+
 export const GetEvents = async (token) => {
     const options = {
         method: "GET",
