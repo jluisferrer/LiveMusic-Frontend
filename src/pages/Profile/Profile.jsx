@@ -118,7 +118,8 @@ export const Profile = () => {
                 </>
             )}
           {userEvents.map((event, index) => (
-                <EventCard key={`${event.id}-${index}`} event={event} />
+                <EventCard key={`${event.id}-${index}`} event={event}
+                 />
             ))}
         </div>
     )
