@@ -1,5 +1,4 @@
 import "./Home.css";
-import store from "../../app/store.js";
 import { useEffect, useState } from "react";
 import React from "react";
 import { useSelector } from "react-redux";
