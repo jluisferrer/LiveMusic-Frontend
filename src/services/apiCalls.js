@@ -191,3 +191,25 @@ export const deleteUserEvent = async (eventId, token) => {
         return error;
     }
 }
+
+export const createEvent = async (event, token) => {
+    const options = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+        },
+        body: JSON.stringify(event),  // Convierte el objeto en un string JSON
+    };
+    try {
+        const response = await fetch(`${root}events`, options);
+        const data = await response.json();
+
+        if (!data.success) {
+            throw new Error(data.message);
+        }
+        return data;
+    } catch (error) {
+        return error;
+    }
+}
