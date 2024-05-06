@@ -17,8 +17,8 @@ export const Profile = () => {
     const user = useSelector((state) => state.user.credentials)
     const [name, setName] = useState(user ? user.user.name : "");
     const [email, setEmail] = useState(user ? user.user.email : "");
-    const [password, setPassword] = useState("");
-
+    const [password, setPassword] = useState(user ? user.user.password : "");
+    
     const handleNameChange = (e) => {
         setName(e.target.value);
     };
@@ -64,9 +64,13 @@ export const Profile = () => {
                 try {
                     const fetched = await GetUserEvents(user.token);
                     console.log(fetched.data, "fetched events");
-                    setUserEvents(fetched.data);
+                    if (fetched.data) {
+                        setUserEvents(fetched.data);
+                    } else {
+                        setUserEvents([]); // Establece el estado como un array vacío si fetched.data es undefined
+                    }
                 } catch (error) {
-
+                    console.error(error);
                 }
             }
             fetchUserEvents();
@@ -113,8 +117,8 @@ export const Profile = () => {
                     </button>
                 </>
             )}
-            {userEvents.map(event => (
-                <EventCard key={event.id} event={event} />
+          {userEvents.map((event, index) => (
+                <EventCard key={`${event.id}-${index}`} event={event} />
             ))}
         </div>
     )
