@@ -1,6 +1,6 @@
 import "./Admin.css";
 import { useEffect, useState } from "react";
-import { getAllUsers, deleteUser, GetEvents, createEvent, updateEvent, deleteEvent, updateUser } from "../../services/apiCalls";
+import { getAllUsers, deleteUser, GetEvents, createEvent, updateEvent, deleteEvent, updateUser, updateUserAdmin } from "../../services/apiCalls";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { CInput } from "../../common/CInput/CInput";
@@ -38,9 +38,8 @@ export const Admin = () => {
         }
     };
 
-    const handleDeleteUser = async (userId) => {
+    const DeleteUser = async (userId) => {
         try {
-            console.log(userId, "userId a borrar")
             await deleteUser(userId, user.token);
             fetchUsers();
         } catch (error) {
@@ -48,29 +47,14 @@ export const Admin = () => {
         }
     };
 
-    const handleUpdateUserRole = async (userId, newRole) => {
+    const UpdateUserRole = async (userId, token) => {
         try {
-            const userToUpdate = users.find(user => user.id === userId);
-            if (!userToUpdate) {
-                console.log(`User with id ${userId} not found`);
-                return;
-            }
-
-            // Actualizar el rol del usuario
-            userToUpdate.role = newRole;
-
-            // Llamar a la API para actualizar el usuario
-            const response = await updateUser(userToUpdate, user.token);
-            if (response.success) {
-                // Si la actualización fue exitosa, actualizar la lista de usuarios
-                fetchUsers();
-            } else {
-                console.log(response.message);
-            }
+            await updateUserAdmin(userId, token);
+            fetchUsers();
         } catch (error) {
             console.log(error);
         }
-    };
+    }
 
     const handleDeleteEvent = async (eventId) => {
         try {
@@ -131,7 +115,7 @@ export const Admin = () => {
                                 <td>{user.email}</td>
                                 <td>{user.role}</td>
                                 <td>
-                                    <select value={user.role} onChange={(e) => handleUpdateUserRole(user.id, e.target.value)}>
+                                    <select value={user.role} onChange={(e) =>UpdateUserRole(user.id, e.target.value)}>
                                         <option value="group">Group</option>
                                         <option value="user">User</option>
         
@@ -139,7 +123,7 @@ export const Admin = () => {
                                 </td>
 
                                 <td>
-                                    <button onClick={() => handleDeleteUser(user.id)}>Delete</button>
+                                    <button onClick={() => DeleteUser(user.id)}>Delete</button>
                                     {/* más acciones  */}
                                 </td>
                             </tr>

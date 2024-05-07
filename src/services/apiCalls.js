@@ -64,6 +64,29 @@ export const updateUser = async (user, token) => {
     }
 }
 
+export const updateUserAdmin = async (userId, token) => {
+    const options = {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+        },
+        body: JSON.stringify()
+    }
+    try {
+        const response = await fetch(`${root}users/update/${userId}`, options)
+        const data = await response.json()
+
+        if (!data.success) {
+            throw new Error(data.message)
+        }
+        return data;
+    } catch (error) {
+        return error
+    }
+}
+
+
 export const RegisterUser = async (user) => {
     const options = {
         method: "POST",
