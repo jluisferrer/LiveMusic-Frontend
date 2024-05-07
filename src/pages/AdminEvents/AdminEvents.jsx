@@ -68,7 +68,7 @@ export const AdminEvents = () => {
     };
 
     return (
-        <div className="adminDesign">          
+        <div className="adminEventDesign">          
                 <h2>Events</h2>
                 <div>
                     <label>Event Name:</label>
@@ -92,6 +92,7 @@ export const AdminEvents = () => {
                     <label>Event Location:</label>
                     <CInput
                         type="text"
+                        placeholder={"Event Location"}
                         value={eventLocationInput}
                         changeEmit={(e) => setEventLocationInput(e.target.value)}
                     />
