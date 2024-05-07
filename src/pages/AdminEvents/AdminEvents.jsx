@@ -31,7 +31,7 @@ export const AdminEvents = () => {
     };
 
 
-    const handleDeleteEvent = async (eventId) => {
+    const DeleteEvent = async (eventId) => {
         try {
             await deleteEvent(eventId, user.token);
             fetchEvents();
@@ -40,7 +40,7 @@ export const AdminEvents = () => {
         }
     };
 
-    const handleCreateEvent = async () => {
+    const CreateEvent = async () => {
         try {
             const eventData = {
                 eventName: eventNameInput,
@@ -97,7 +97,7 @@ export const AdminEvents = () => {
                         changeEmit={(e) => setEventLocationInput(e.target.value)}
                     />
                 </div>
-                <button onClick={handleCreateEvent}>Create Event</button>
+                <button onClick={CreateEvent}>Create Event</button>
                 <table>
                     <thead>
                         <tr>
@@ -116,7 +116,7 @@ export const AdminEvents = () => {
                                 <td>{event.eventDate}</td>
                                 <td>{event.location}</td>
                                 <td>
-                                    <button onClick={() => handleDeleteEvent(event.id)}>Delete</button>
+                                    <button onClick={() => DeleteEvent(event.id)}>Delete</button>
                                     {/* más acciones */}
                                 </td>
                             </tr>
