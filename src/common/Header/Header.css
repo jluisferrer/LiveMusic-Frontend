@@ -4,9 +4,16 @@
 
     background-color: #1DB954; 
     display: flex;
+    flex-direction: row;
     justify-content: flex-end;
     align-items: flex-end;
 }
+.adminDiv{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
 
 .outDesign {
     color: white;

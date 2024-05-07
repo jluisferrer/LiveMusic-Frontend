@@ -133,9 +133,8 @@ export const Profile = () => {
                 </>
             )}
             {userEvents.map((event, index) => (
-                <div>
-                    <EventCard key={`${event.id}-${index}`} event={event}
-                    />
+                <div key={`${event.id}-${index}`}>
+                    <EventCard event={event} />
                     <button onClick={() => removeUserEvent(event.id)}>Remove</button>
                 </div>
             ))}
