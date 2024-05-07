@@ -1,12 +1,10 @@
-.registerDesign {
-    height: 80vh;
+.footerDesign {
+    height: 8vh;
     width: 100vw;
-    overflow: auto;
-
-    background-color: #282828; 
+    background-color: #1DB954;
+    color: white;
     display: flex;
     flex-direction: column;
-    /* flex-wrap: wrap; */
     justify-content: center;
     align-items: center;
 }

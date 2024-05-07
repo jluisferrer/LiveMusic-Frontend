@@ -2,8 +2,35 @@
     height: 12vh;
     width: 100vw;
 
-    background-color: rgb(1, 1, 198);
+    background-color: #1DB954; 
     display: flex;
+    flex-direction: row;
     justify-content: flex-end;
     align-items: flex-end;
+}
+.adminDiv{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+
+.outDesign {
+    color: white;
+    font-weight: bold;
+
+    margin: 1em;
+    transition: 0.3s;
+
+}
+
+.navigatorDesign {
+    display: flex;
+    flex-direction: row;
+}
+
+.outDesign:hover {
+    transition: 0.3s;
+    color: #1DB954;
+    cursor: pointer;
 }

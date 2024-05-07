@@ -1,0 +1,76 @@
+.adminDesign {
+    height: 80vh;
+    width: 100vw;
+    overflow: auto;
+    background-color: #282828; 
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.adminDesign table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    min-width: 400px;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    width: 100%;
+}
+
+.adminDesign table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: center;
+}
+
+.adminDesign table th,
+.adminDesign table td {
+    padding: 12px 15px;
+    
+  
+}
+
+.adminDesign table tbody tr {
+    border-bottom: 1px solid #dddddd;
+    background-color: #404040;
+    color: #f0f0f0;
+}
+
+.adminDesign table tbody tr:nth-of-type(even) {
+    background-color: #505050;
+}
+
+.adminDesign table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+
+.adminDesign table tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
+}
+
+.adminDesign table tbody tr:hover {
+    background-color: #606060;
+}
+
+.adminDesign table tbody tr td:last-child {
+    display: flex;
+    justify-content: space-around;
+}
+
+.adminDesign table tbody tr td:last-child button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #009879;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.adminDesign table tbody tr td:last-child button:hover {
+    background-color: #007f5f;
+}
