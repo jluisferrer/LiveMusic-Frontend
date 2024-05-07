@@ -1,8 +1,10 @@
 import "./Admin.css";
 import { useEffect, useState } from "react";
-import { getAllUsers, deleteUser, GetEvents, createEvent, updateEvent, deleteEvent, updateUser } from "../../services/apiCalls";
+import { getAllUsers, deleteUser, GetEvents, createEvent, updateEvent, deleteEvent } from "../../services/apiCalls";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import ProfileCard from "../../common/ProfileCard/ProfileCard";
+import EventCard from "../../common/EventCard/EventCard";
 import { CInput } from "../../common/CInput/CInput";
 
 export const Admin = () => {
@@ -40,33 +42,8 @@ export const Admin = () => {
 
     const handleDeleteUser = async (userId) => {
         try {
-            console.log(userId, "userId a borrar")
             await deleteUser(userId, user.token);
             fetchUsers();
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    const handleUpdateUserRole = async (userId, newRole) => {
-        try {
-            const userToUpdate = users.find(user => user.id === userId);
-            if (!userToUpdate) {
-                console.log(`User with id ${userId} not found`);
-                return;
-            }
-
-            // Actualizar el rol del usuario
-            userToUpdate.role = newRole;
-
-            // Llamar a la API para actualizar el usuario
-            const response = await updateUser(userToUpdate, user.token);
-            if (response.success) {
-                // Si la actualización fue exitosa, actualizar la lista de usuarios
-                fetchUsers();
-            } else {
-                console.log(response.message);
-            }
         } catch (error) {
             console.log(error);
         }
@@ -119,7 +96,6 @@ export const Admin = () => {
                             <th>ID</th>
                             <th>Name</th>
                             <th>Email</th>
-                            <th>Role</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -129,18 +105,62 @@ export const Admin = () => {
                                 <td>{user.id}</td>
                                 <td>{user.name}</td>
                                 <td>{user.email}</td>
-                                <td>{user.role}</td>
-                                <td>
-                                    <select value={user.role} onChange={(e) => handleUpdateUserRole(user.id, e.target.value)}>
-                                        <option value="group">Group</option>
-                                        <option value="user">User</option>
-        
-                                    </select>
-                                </td>
-
                                 <td>
                                     <button onClick={() => handleDeleteUser(user.id)}>Delete</button>
                                     {/* más acciones  */}
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+            <div className="adminDesign">
+                <h2>Events</h2>
+                <div>
+                    <label>Event Name:</label>
+                    <CInput
+                        type="text"
+                        value={eventNameInput}
+                        changeEmit={(e) => setEventNameInput(e.target.value)}
+                    />
+                </div>
+                <div>
+                    <label>Event Date:</label>
+                    <CInput
+                        type="text"
+                        value={eventDateInput}
+                        changeEmit={(e) => setEventDateInput(e.target.value)}
+                    />
+                </div>
+                <div>
+                    <label>Event Location:</label>
+                    <CInput
+                        type="text"
+                        value={eventLocationInput}
+                        changeEmit={(e) => setEventLocationInput(e.target.value)}
+                    />
+                </div>
+                <button onClick={handleCreateEvent}>Create Event</button>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Event Name</th>
+                            <th>Date</th>
+                            <th>Location</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {events.map((event) => (
+                            <tr key={event.id}>
+                                <td>{event.id}</td>
+                                <td>{event.eventName}</td>
+                                <td>{event.eventDate}</td>
+                                <td>{event.location}</td>
+                                <td>
+                                    <button onClick={() => handleDeleteEvent(event.id)}>Delete</button>
+                                    {/* más acciones */}
                                 </td>
                             </tr>
                         ))}

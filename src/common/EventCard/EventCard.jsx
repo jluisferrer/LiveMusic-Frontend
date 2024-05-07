@@ -15,7 +15,7 @@ function EventCard({ event }) {
                     ))}
                 </ul>
             </div>
-            {/* Aquí puedes agregar más detalles sobre el evento */}
+            {/*detalles  del evento */}
         </div>
     );
 }
