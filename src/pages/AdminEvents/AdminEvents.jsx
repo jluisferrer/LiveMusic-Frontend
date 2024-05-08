@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { GetEvents, createEvent, updateEvent, deleteEvent } from "../../services/apiCalls";
 import { useSelector } from "react-redux";
 import { CInput } from "../../common/CInput/CInput";
+import { validame } from "../../utils/functions";
 
 export const AdminEvents = () => {
     const [events, setEvents] = useState([]);
@@ -11,6 +12,12 @@ export const AdminEvents = () => {
     const [eventLocationInput, setEventLocationInput] = useState("");
     const [selectedEvent, setSelectedEvent] = useState(null);
     const user = useSelector((state) => state.user.credentials);
+
+    const [eventError, setEventError] = useState({
+        eventNameError: "",
+        eventDateError: "",
+        eventLocationError: "",
+    });
 
     useEffect(() => {
         fetchEvents();
@@ -38,6 +45,17 @@ export const AdminEvents = () => {
 
     const CreateEvent = async () => {
         try {
+            // Valida los campos de entrada antes de crear el evento
+            const eventNameError = validame("eventName", eventNameInput);
+            const eventDateError = validame("eventDate", eventDateInput);
+            const eventLocationError = validame("eventLocation", eventLocationInput);
+
+            if (eventNameError || eventDateError || eventLocationError) {
+                // Si hay algún error, muestra un mensaje y detiene la ejecución
+                console.log("Error: Invalid input");
+                return;
+            }
+
             const eventData = {
                 eventName: eventNameInput,
                 eventDate: eventDateInput,
@@ -50,7 +68,7 @@ export const AdminEvents = () => {
             setEventDateInput("");
             setEventLocationInput("");
         } catch (error) {
-            return error;
+           return error;
         }
     };
 
@@ -81,35 +99,68 @@ export const AdminEvents = () => {
         }
     };
 
+    const checkError = (name, value) => {
+        const error = validame(name, value);
+
+        setEventError((prevState) => ({
+            ...prevState,
+            [name + "Error"]: error,
+        }));
+    };
+
     return (
         <div className="adminEventDesign">
             <h2>Events</h2>
-            <div>
-                <label>Event Name:</label>
-                <CInput
-                    type="text"
-                    placeholder={"Event Name"}
-                    value={eventNameInput}
-                    changeEmit={(e) => setEventNameInput(e.target.value)}
-                />
+            <div className="inputContainer">
+                <div>
+                    <label>Event Name:</label>
+                    <div className="inputWrapper">
+                        <CInput
+                            className={`inputDesign ${eventError.eventNameError !== "" ? "inputDesignError" : ""
+                                }`}
+                            type="text"
+                            placeholder={"Event Name"}
+                            value={eventNameInput || ""}
+                            changeEmit={(e) => setEventNameInput(e.target.value)}
+                            onBlurFunction={() => checkError("eventName", eventNameInput)}
+                        />
+                        <div className="inputDesignError">{eventError.eventNameError}</div>
+                    </div>
+                </div>
             </div>
-            <div>
-                <label>Event Date:</label>
-                <CInput
-                    type="text"
-                    placeholder={"YYYY-MM-DD"}
-                    value={eventDateInput}
-                    changeEmit={(e) => setEventDateInput(e.target.value)}
-                />
+            <div className="inputContainer">
+                <div>
+                    <label>Event Date:</label>
+                    <div className="inputWrapper">
+                        <CInput
+                            className={`inputDesign ${eventError.eventDateError !== "" ? "inputDesignError" : ""
+                                }`}
+                            type="text"
+                            placeholder={"YYYY-MM-DD"}
+                            value={eventDateInput}
+                            changeEmit={(e) => setEventDateInput(e.target.value)}
+                            onBlurFunction={() => checkError("eventDate", eventDateInput)}
+                        />
+                        <div className="inputDesignError">{eventError.eventDateError}</div>
+                    </div>
+                </div>
             </div>
-            <div>
-                <label>Event Location:</label>
-                <CInput
-                    type="text"
-                    placeholder={"Event Location"}
-                    value={eventLocationInput}
-                    changeEmit={(e) => setEventLocationInput(e.target.value)}
-                />
+            <div className="inputContainer">
+                <div>
+                    <label>Event Location:</label>
+                    <div className="inputWrapper">
+                        <CInput
+                            className={`inputDesign ${eventError.eventLocationError !== "" ? "inputDesignError" : ""
+                                }`}
+                            type="text"
+                            placeholder={"Event Location"}
+                            value={eventLocationInput}
+                            changeEmit={(e) => setEventLocationInput(e.target.value)}
+                            onBlurFunction={() => checkError("eventLocation", eventLocationInput)}
+                        />
+                        <div className="inputDesignError">{eventError.eventLocationError}</div>
+                    </div>
+                </div>
             </div>
             <button onClick={CreateEvent}>Create Event</button>
             <table>
@@ -140,5 +191,5 @@ export const AdminEvents = () => {
                 </tbody>
             </table>
         </div>
-    );
+    );    
 }
