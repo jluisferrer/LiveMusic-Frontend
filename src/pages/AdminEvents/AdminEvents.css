@@ -53,6 +53,7 @@
 
 .adminEventDesign table tbody tr:hover {
     background-color: #505050;
+    cursor: pointer;
 }
 
 .adminEventDesign table tbody tr td:last-child {
@@ -71,4 +72,5 @@
 
 .adminEventDesign table tbody tr td:last-child button:hover {
     background-color: #005f3f;
+    cursor: pointer;
 }

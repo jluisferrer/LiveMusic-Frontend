@@ -1,10 +1,7 @@
 import "./AdminEvents.css";
 import { useEffect, useState } from "react";
 import { GetEvents, createEvent, updateEvent, deleteEvent } from "../../services/apiCalls";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import ProfileCard from "../../common/ProfileCard/ProfileCard";
-import EventCard from "../../common/EventCard/EventCard";
+import { useSelector } from "react-redux";
 import { CInput } from "../../common/CInput/CInput";
 
 export const AdminEvents = () => {
@@ -13,8 +10,6 @@ export const AdminEvents = () => {
     const [eventDateInput, setEventDateInput] = useState("");
     const [eventLocationInput, setEventLocationInput] = useState("");
     const [selectedEvent, setSelectedEvent] = useState(null);
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
     const user = useSelector((state) => state.user.credentials);
 
     useEffect(() => {
@@ -27,7 +22,7 @@ export const AdminEvents = () => {
             const response = await GetEvents(user.token);
             setEvents(response.data);
         } catch (error) {
-            console.log(error);
+            return error;
         }
     };
 
@@ -37,7 +32,7 @@ export const AdminEvents = () => {
             await deleteEvent(eventId, user.token);
             fetchEvents();
         } catch (error) {
-            console.log(error);
+            return error;
         }
     };
 
@@ -55,11 +50,11 @@ export const AdminEvents = () => {
             setEventDateInput("");
             setEventLocationInput("");
         } catch (error) {
-            console.log(error);
+            return error;
         }
     };
 
-    const handleSelectEvent = (event) => {
+    const selectEvent = (event) => {
         setSelectedEvent(event);
         setEventNameInput(event.eventName);
         setEventDateInput(event.eventDate);
@@ -76,9 +71,12 @@ export const AdminEvents = () => {
             try {
                 await updateEvent(selectedEvent.id, updatedEventData, user.token);
                 fetchEvents();
-                setSelectedEvent(null);  // Limpia el evento seleccionado después de actualizar
+                setSelectedEvent(null);
+                setEventNameInput("");
+                setEventDateInput("");
+                setEventLocationInput("");  // Limpia el evento seleccionado después de actualizar
             } catch (error) {
-                console.log(error);
+                return error;
             }
         }
     };
@@ -126,7 +124,7 @@ export const AdminEvents = () => {
                 </thead>
                 <tbody>
                     {events.map((event) => (
-                        <tr key={event.id} onClick={() => handleSelectEvent(event)}>
+                        <tr key={event.id} onClick={() => selectEvent(event)}>
                             <td>{event.id}</td>
                             <td>{event.eventName}</td>
                             <td>{event.eventDate}</td>
