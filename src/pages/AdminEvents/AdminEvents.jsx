@@ -1,6 +1,6 @@
 import "./AdminEvents.css";
 import { useEffect, useState } from "react";
-import {  GetEvents, createEvent, updateEvent, deleteEvent } from "../../services/apiCalls";
+import { GetEvents, createEvent, updateEvent, deleteEvent } from "../../services/apiCalls";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import ProfileCard from "../../common/ProfileCard/ProfileCard";
@@ -84,95 +84,63 @@ export const AdminEvents = () => {
     };
 
     return (
-        <div className="adminEventDesign">          
-                <h2>Events</h2>
-                <div>
-                    <label>Event Name:</label>
-                    <CInput
-                        type="text"
-                        placeholder={"Event Name"}
-                        value={eventNameInput}
-                        changeEmit={(e) => setEventNameInput(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <label>Event Date:</label>
-                    <CInput
-                        type="text"
-                        placeholder={"YYYY-MM-DD"}
-                        value={eventDateInput}
-                        changeEmit={(e) => setEventDateInput(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <label>Event Location:</label>
-                    <CInput
-                        type="text"
-                        placeholder={"Event Location"}
-                        value={eventLocationInput}
-                        changeEmit={(e) => setEventLocationInput(e.target.value)}
-                    />
-                </div>
-                <button onClick={CreateEvent}>Create Event</button>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Event Name</th>
-                            <th>Date</th>
-                            <th>Location</th>
-                            <th>Action</th>
+        <div className="adminEventDesign">
+            <h2>Events</h2>
+            <div>
+                <label>Event Name:</label>
+                <CInput
+                    type="text"
+                    placeholder={"Event Name"}
+                    value={eventNameInput}
+                    changeEmit={(e) => setEventNameInput(e.target.value)}
+                />
+            </div>
+            <div>
+                <label>Event Date:</label>
+                <CInput
+                    type="text"
+                    placeholder={"YYYY-MM-DD"}
+                    value={eventDateInput}
+                    changeEmit={(e) => setEventDateInput(e.target.value)}
+                />
+            </div>
+            <div>
+                <label>Event Location:</label>
+                <CInput
+                    type="text"
+                    placeholder={"Event Location"}
+                    value={eventLocationInput}
+                    changeEmit={(e) => setEventLocationInput(e.target.value)}
+                />
+            </div>
+            <button onClick={CreateEvent}>Create Event</button>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Event Name</th>
+                        <th>Date</th>
+                        <th>Location</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {events.map((event) => (
+                        <tr key={event.id} onClick={() => handleSelectEvent(event)}>
+                            <td>{event.id}</td>
+                            <td>{event.eventName}</td>
+                            <td>{event.eventDate}</td>
+                            <td>{event.location}</td>
+                            <td>
+                                <button onClick={() => DeleteEvent(event.id)}>Delete</button>
+                                {selectedEvent && selectedEvent.id === event.id && (
+                                    <button onClick={eventUpdate}>Update</button>
+                                )}
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        {events.map((event) => (
-                            <tr key={event.id} onClick={() => handleSelectEvent(event)}>
-                                <td>{event.id}</td>
-                                <td>{event.eventName}</td>
-                                <td>{event.eventDate}</td>
-                                <td>{event.location}</td>
-                                <td>
-                                    <button onClick={() => DeleteEvent(event.id)}>Delete</button>
-                                    {selectedEvent && selectedEvent.id === event.id && (
-                        <button onClick={eventUpdate}>Update</button>
-                    )}
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-                {selectedEvent && (
-            <>
-                <div>
-                    <label>Event Name:</label>
-                    <CInput
-                        type="text"
-                        placeholder={"Event Name"}
-                        value={eventNameInput}
-                        changeEmit={(e) => setEventNameInput(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <label>Event Date:</label>
-                    <CInput
-                        type="text"
-                        placeholder={"YYYY-MM-DD"}
-                        value={eventDateInput}
-                        changeEmit={(e) => setEventDateInput(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <label>Event Location:</label>
-                    <CInput
-                        type="text"
-                        placeholder={"Event Location"}
-                        value={eventLocationInput}
-                        changeEmit={(e) => setEventLocationInput(e.target.value)}
-                    />
-                </div>
-                <button onClick={eventUpdate}>Update Event</button>
-            </>
-        )}
-    </div>
-);
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    );
 }
