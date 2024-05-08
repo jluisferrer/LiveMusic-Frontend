@@ -1,6 +1,6 @@
 import "./AdminEvents.css";
 import { useEffect, useState } from "react";
-import { deleteUser, GetEvents, createEvent, updateEvent, deleteEvent } from "../../services/apiCalls";
+import {  GetEvents, createEvent, updateEvent, deleteEvent } from "../../services/apiCalls";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import ProfileCard from "../../common/ProfileCard/ProfileCard";
@@ -12,6 +12,7 @@ export const AdminEvents = () => {
     const [eventNameInput, setEventNameInput] = useState("");
     const [eventDateInput, setEventDateInput] = useState("");
     const [eventLocationInput, setEventLocationInput] = useState("");
+    const [selectedEvent, setSelectedEvent] = useState(null);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const user = useSelector((state) => state.user.credentials);
@@ -58,12 +59,27 @@ export const AdminEvents = () => {
         }
     };
 
-    const handleUpdateEvent = async (eventId, updatedEventData) => {
-        try {
-            await updateEvent(eventId, updatedEventData, user.token);
-            fetchEvents();
-        } catch (error) {
-            console.log(error);
+    const handleSelectEvent = (event) => {
+        setSelectedEvent(event);
+        setEventNameInput(event.eventName);
+        setEventDateInput(event.eventDate);
+        setEventLocationInput(event.location);
+    };
+
+    const eventUpdate = async () => {
+        if (selectedEvent) {
+            const updatedEventData = {
+                eventName: eventNameInput,
+                eventDate: eventDateInput,
+                location: eventLocationInput
+            };
+            try {
+                await updateEvent(selectedEvent.id, updatedEventData, user.token);
+                fetchEvents();
+                setSelectedEvent(null);  // Limpia el evento seleccionado después de actualizar
+            } catch (error) {
+                console.log(error);
+            }
         }
     };
 
@@ -110,19 +126,53 @@ export const AdminEvents = () => {
                     </thead>
                     <tbody>
                         {events.map((event) => (
-                            <tr key={event.id}>
+                            <tr key={event.id} onClick={() => handleSelectEvent(event)}>
                                 <td>{event.id}</td>
                                 <td>{event.eventName}</td>
                                 <td>{event.eventDate}</td>
                                 <td>{event.location}</td>
                                 <td>
                                     <button onClick={() => DeleteEvent(event.id)}>Delete</button>
-                                    {/* más acciones */}
+                                    {selectedEvent && selectedEvent.id === event.id && (
+                        <button onClick={eventUpdate}>Update</button>
+                    )}
                                 </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
-        </div>
-    );
-};
+                {selectedEvent && (
+            <>
+                <div>
+                    <label>Event Name:</label>
+                    <CInput
+                        type="text"
+                        placeholder={"Event Name"}
+                        value={eventNameInput}
+                        changeEmit={(e) => setEventNameInput(e.target.value)}
+                    />
+                </div>
+                <div>
+                    <label>Event Date:</label>
+                    <CInput
+                        type="text"
+                        placeholder={"YYYY-MM-DD"}
+                        value={eventDateInput}
+                        changeEmit={(e) => setEventDateInput(e.target.value)}
+                    />
+                </div>
+                <div>
+                    <label>Event Location:</label>
+                    <CInput
+                        type="text"
+                        placeholder={"Event Location"}
+                        value={eventLocationInput}
+                        changeEmit={(e) => setEventLocationInput(e.target.value)}
+                    />
+                </div>
+                <button onClick={eventUpdate}>Update Event</button>
+            </>
+        )}
+    </div>
+);
+}
