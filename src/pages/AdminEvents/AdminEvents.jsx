@@ -111,56 +111,44 @@ export const AdminEvents = () => {
     return (
         <div className="adminEventDesign">
             <h2>Events</h2>
-            <div className="inputContainer">
-                <div>
-                    <label>Event Name:</label>
-                    <div className="inputWrapper">
-                        <CInput
-                            className={`inputDesign ${eventError.eventNameError !== "" ? "inputDesignError" : ""
-                                }`}
-                            type="text"
-                            placeholder={"Event Name"}
-                            value={eventNameInput || ""}
-                            changeEmit={(e) => setEventNameInput(e.target.value)}
-                            onBlurFunction={() => checkError("eventName", eventNameInput)}
-                        />
-                        <div className="inputDesignError">{eventError.eventNameError}</div>
-                    </div>
-                </div>
+            <div>
+                <label>Event Name:</label>
+                <CInput
+                    className={`inputDesign ${eventError.eventNameError !== "" ? "inputDesignError" : ""
+                        }`}
+                    type="text"
+                    placeholder={"Event Name"}
+                    value={eventNameInput || ""}
+                    changeEmit={(e) => setEventNameInput(e.target.value)}
+                    onBlurFunction={() => checkError("eventName", eventNameInput)}
+                />
+                <div className="inputDesignError">{eventError.eventNameError}</div>
             </div>
-            <div className="inputContainer">
-                <div>
-                    <label>Event Date:</label>
-                    <div className="inputWrapper">
-                        <CInput
-                            className={`inputDesign ${eventError.eventDateError !== "" ? "inputDesignError" : ""
-                                }`}
-                            type="text"
-                            placeholder={"YYYY-MM-DD"}
-                            value={eventDateInput}
-                            changeEmit={(e) => setEventDateInput(e.target.value)}
-                            onBlurFunction={() => checkError("eventDate", eventDateInput)}
-                        />
-                        <div className="inputDesignError">{eventError.eventDateError}</div>
-                    </div>
-                </div>
+            <div>
+                <label>Event Date:</label>
+                <CInput
+                    className={`inputDesign ${eventError.eventDateError !== "" ? "inputDesignError" : ""
+                        }`}
+                    type="text"
+                    placeholder={"YYYY-MM-DD"}
+                    value={eventDateInput}
+                    changeEmit={(e) => setEventDateInput(e.target.value)}
+                    onBlurFunction={() => checkError("eventDate", eventDateInput)}
+                />
+                <div className="inputDesignError">{eventError.eventDateError}</div>
             </div>
-            <div className="inputContainer">
-                <div>
-                    <label>Event Location:</label>
-                    <div className="inputWrapper">
-                        <CInput
-                            className={`inputDesign ${eventError.eventLocationError !== "" ? "inputDesignError" : ""
-                                }`}
-                            type="text"
-                            placeholder={"Event Location"}
-                            value={eventLocationInput}
-                            changeEmit={(e) => setEventLocationInput(e.target.value)}
-                            onBlurFunction={() => checkError("eventLocation", eventLocationInput)}
-                        />
-                        <div className="inputDesignError">{eventError.eventLocationError}</div>
-                    </div>
-                </div>
+            <div>
+                <label>Event Location:</label>
+                <CInput
+                    className={`inputDesign ${eventError.eventLocationError !== "" ? "inputDesignError" : ""
+                        }`}
+                    type="text"
+                    placeholder={"Event Location"}
+                    value={eventLocationInput}
+                    changeEmit={(e) => setEventLocationInput(e.target.value)}
+                    onBlurFunction={() => checkError("eventLocation", eventLocationInput)}
+                />
+                <div className="inputDesignError">{eventError.eventLocationError}</div>
             </div>
             <button onClick={CreateEvent}>Create Event</button>
             <table>
@@ -191,5 +179,5 @@ export const AdminEvents = () => {
                 </tbody>
             </table>
         </div>
-    );    
+    );
 }
