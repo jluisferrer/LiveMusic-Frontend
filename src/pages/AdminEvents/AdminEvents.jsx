@@ -4,6 +4,8 @@ import { GetEvents, createEvent, updateEvent, deleteEvent } from "../../services
 import { useSelector } from "react-redux";
 import { CInput } from "../../common/CInput/CInput";
 import { validame } from "../../utils/functions";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const AdminEvents = () => {
     const [events, setEvents] = useState([]);
@@ -51,8 +53,7 @@ export const AdminEvents = () => {
             const eventLocationError = validame("eventLocation", eventLocationInput);
 
             if (eventNameError || eventDateError || eventLocationError) {
-                // Si hay algún error, muestra un mensaje y detiene la ejecución
-                console.log("Error: Invalid input");
+                toast.error("Error: Invalid input");
                 return;
             }
 
@@ -106,10 +107,15 @@ export const AdminEvents = () => {
             ...prevState,
             [name + "Error"]: error,
         }));
+
+        if (error) {
+            toast.error(error);
+        }
     };
 
     return (
         <div className="adminEventDesign">
+            <ToastContainer />
             <h2>Events</h2>
             <div>
                 <label>Event Name:</label>
@@ -122,7 +128,6 @@ export const AdminEvents = () => {
                     changeEmit={(e) => setEventNameInput(e.target.value)}
                     onBlurFunction={() => checkError("eventName", eventNameInput)}
                 />
-                <div className="inputDesignError">{eventError.eventNameError}</div>
             </div>
             <div>
                 <label>Event Date:</label>
@@ -135,7 +140,6 @@ export const AdminEvents = () => {
                     changeEmit={(e) => setEventDateInput(e.target.value)}
                     onBlurFunction={() => checkError("eventDate", eventDateInput)}
                 />
-                <div className="inputDesignError">{eventError.eventDateError}</div>
             </div>
             <div>
                 <label>Event Location:</label>
@@ -148,7 +152,6 @@ export const AdminEvents = () => {
                     changeEmit={(e) => setEventLocationInput(e.target.value)}
                     onBlurFunction={() => checkError("eventLocation", eventLocationInput)}
                 />
-                <div className="inputDesignError">{eventError.eventLocationError}</div>
             </div>
             <button onClick={CreateEvent}>Create Event</button>
             <table>
