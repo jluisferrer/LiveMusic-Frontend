@@ -5,6 +5,8 @@ import { useState } from "react";
 import { CInput } from "../../common/CInput/CInput";
 import { RegisterUser } from "../../services/apiCalls";
 import { validame } from "../../utils/functions";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const Register = () => {
     const navigate = useNavigate();
@@ -50,10 +52,8 @@ export const Register = () => {
                 }
             }
 
-            const fetched = await RegisterUser(user);
-          
-
-            console.log(fetched);
+            await RegisterUser(user);
+            toast.success("Register completed");
             setMsg("Register completed");
 
             setTimeout(() => {

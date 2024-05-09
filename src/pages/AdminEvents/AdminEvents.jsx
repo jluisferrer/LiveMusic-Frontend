@@ -53,7 +53,7 @@ export const AdminEvents = () => {
                     toast.warning("Group already added to event");
                     return;
                 }
-    
+
                 // Añadir el grupo al evento
                 await joinGroupEvent(selectedGroup.id, selectedEvent.id, user.token);
                 fetchEvents(); // Actualiza la lista de eventos después de añadir el grupo al evento
@@ -67,8 +67,8 @@ export const AdminEvents = () => {
         }
     };
 
-     // Función para manejar la selección de grupo
-     const handleGroupSelection = (group) => {
+    // Función para manejar la selección de grupo
+    const handleGroupSelection = (group) => {
         setSelectedGroup(group);
         setGroupError({
             groupIdError: "", // Limpia el error al seleccionar un nuevo grupo
@@ -88,6 +88,7 @@ export const AdminEvents = () => {
     const DeleteEvent = async (eventId) => {
         try {
             await deleteEvent(eventId, user.token);
+            toast.success("Event deleted successfully");
             fetchEvents();
         } catch (error) {
             return error;
@@ -112,6 +113,7 @@ export const AdminEvents = () => {
                 location: eventLocationInput
             };
             await createEvent(eventData, user.token);
+            toast.success("Event created successfully");
             fetchEvents();
             // Limpia los inputs después de crear el evento
             setEventNameInput("");
@@ -138,6 +140,7 @@ export const AdminEvents = () => {
             };
             try {
                 await updateEvent(selectedEvent.id, updatedEventData, user.token);
+                toast.success("Event updated successfully");
                 fetchEvents();
                 setSelectedEvent(null);
                 setEventNameInput("");
@@ -165,7 +168,7 @@ export const AdminEvents = () => {
     return (
         <div className="adminEventDesign">
             <ToastContainer />
-            <h2>Events</h2>
+            {/* <h2>Events</h2> */}
             <div>
                 <label>Event Name:</label>
                 <CInput
@@ -203,6 +206,17 @@ export const AdminEvents = () => {
                 />
             </div>
             <button onClick={CreateEvent}>Create Event</button>
+            <div>
+                <label>Groups:</label>
+                <select onChange={(e) => handleGroupSelection(groups.find(group => group.id === parseInt(e.target.value)))}>
+                    <option value="">Select Group</option>
+                    {groups && groups.map(group => (
+                        <option key={group.id} value={group.id}>{group.groupName}</option>
+                    ))}
+                </select>
+                {groupError.groupIdError && <div className="error-message">{groupError.groupIdError}</div>}
+            </div>
+            <button onClick={joinGroupToSelectedEvent}>Add Group to Event</button>
             <table>
                 <thead>
                     <tr>
@@ -230,17 +244,7 @@ export const AdminEvents = () => {
                     ))}
                 </tbody>
             </table>
-            <div>
-                <label>Groups:</label>
-                <select onChange={(e) => handleGroupSelection(groups.find(group => group.id === parseInt(e.target.value)))}>
-                    <option value="">Select Group</option>
-                    {groups && groups.map(group => (
-    <option key={group.id} value={group.id}>{group.groupName}</option>
-))}
-                </select>
-                {groupError.groupIdError && <div className="error-message">{groupError.groupIdError}</div>}
-            </div>
-            <button onClick={joinGroupToSelectedEvent}>Add Group to Event</button>
+
         </div>
     );
 }
