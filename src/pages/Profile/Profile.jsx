@@ -4,34 +4,57 @@ import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router"
 import { useEffect, useState } from "react"
 import { GetUserEvents, deleteUserEvent } from "../../services/apiCalls"
-import EventCard from "../../common/EventCard/EventCard"
+import { EventCard } from "../../common/EventCard/EventCard"
 import { CInput } from "../../common/CInput/CInput"
 import { login } from "../../slices/userSlice"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { validame } from "../../utils/functions"
 
 export const Profile = () => {
     const [userEvents, setUserEvents] = useState([]);
     const dispatch = useDispatch();
     const [editMode, setEditMode] = useState(false);
-    const navigate = useNavigate()
-    const user = useSelector((state) => state.user.credentials)
-    const [name, setName] = useState(user ? user.user.name : "");
-    const [email, setEmail] = useState(user ? user.user.email : "");
-    const [password, setPassword] = useState(user ? user.user.password : "");
+    const navigate = useNavigate();
+    const user = useSelector((state) => state.user.credentials);
+    const [name, setName] = useState(user?.user?.name || " ");
+    const [email, setEmail] = useState(user?.user?.email || " ");
+    const [password, setPassword] = useState(user?.user?.password || " ");
+
+    const [userError, setUserError] = useState({
+        nameError: "",
+        emailError: "",
+        passwordError: "",
+    });
 
     const handleNameChange = (e) => {
         setName(e.target.value);
+        checkError(e.target.name, e.target.value);
     };
 
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
+        checkError(e.target.name, e.target.value);
     };
 
     const handlePasswordChange = (e) => {
         setPassword(e.target.value);
+        checkError(e.target.name, e.target.value);
     };
 
     const handleSave = async () => {
         try {
+            // Valida los campos de entrada antes de guardar
+            const nameError = validame("name", name);
+            const emailError = validame("email", email);
+            const passwordError = validame("password", password);
+
+            if (nameError || emailError || passwordError) {
+                // Si hay algún error, muestra un mensaje y detiene la ejecución
+                toast.error("Error: Invalid input");
+                return;
+            }
+
             // Objeto para enviar al backend
             const updatedUserData = {
                 name,
@@ -57,7 +80,7 @@ export const Profile = () => {
 
     useEffect(() => {
         if (!user) {
-            navigate("/")
+            navigate("/");
         } else {
             const fetchUserEvents = async () => {
                 try {
@@ -99,32 +122,56 @@ export const Profile = () => {
         }
     };
 
+    const checkError = (name, value) => {
+        value = value || "";
+        const error = validame(name, value);
+
+        setUserError((prevState) => ({
+            ...prevState,
+            [name + "Error"]: error,
+        }));
+
+        if (error) {
+            toast.error(error);
+        }
+    };
+
     return (
         <div className="profileDesign">
+            <ToastContainer />
             {user && (
                 <>
                     <CInput
+                        className={`inputDesign ${userError.nameError !== "" ? "inputDesignError" : ""
+                            }`}
                         type="text"
                         placeholder="Nombre"
                         name="name"
                         value={name}
                         changeEmit={handleNameChange}
+                        onBlurFunction={() => checkError("name", name)}
                         disabled={!editMode}
                     />
                     <CInput
+                        className={`inputDesign ${userError.emailError !== "" ? "inputDesignError" : ""
+                            }`}
                         type="email"
                         placeholder="Correo electrónico"
                         name="email"
                         value={email}
                         changeEmit={handleEmailChange}
+                        onBlurFunction={() => checkError("email", email)}
                         disabled={!editMode}
                     />
                     <CInput
+                        className={`inputDesign ${userError.passwordError !== "" ? "inputDesignError" : ""
+                            }`}
                         type="password"
                         placeholder="Contraseña"
                         name="password"
                         value={password}
                         changeEmit={handlePasswordChange}
+                        onBlurFunction={() => checkError("password", password)}
                         disabled={!editMode}
                     />
                     <button onClick={editMode ? handleSave : () => setEditMode(true)}>

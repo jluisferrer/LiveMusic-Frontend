@@ -1,4 +1,4 @@
-.eventCard {
+.detailCard {
     background-color: #222;
     color: #fff;
     border-radius: 10px;
@@ -9,19 +9,19 @@
     width: 300px;
 }
 
-.eventCard:hover {
+.detailCard:hover {
     background-color: #0a0a0a;
     box-shadow: 0 8px 16px 0 rgb(0, 0, 0);
     cursor: pointer;
 }
 
-.eventCard h2 {
+.detailCard h2 {
     color: #ff4081;
     font-size: 24px;
     margin-bottom: 10px;
 }
 
-.eventCard p {
+.detailCard p {
     color: #ddd;
     font-size: 18px;
     line-height: 1.6;

@@ -4,9 +4,11 @@ import { persistReducer } from "redux-persist";
 import { thunk } from "redux-thunk";
 import storage from "redux-persist/lib/storage";
 import userSlice from "../slices/userSlice";
+import eventSlice from "../slices/eventSlice";
 
 const reducers = combineReducers({  //combina los slices
     user: userSlice,
+    detail: eventSlice,
   });
   
   const persistConfig = {  //encripta el estado de la aplicacion en el storage

@@ -2,23 +2,34 @@ import "./Home.css";
 import { useEffect, useState } from "react";
 import React from "react";
 import { useSelector } from "react-redux";
-import { GetEvents, JoinEvent} from "../../services/apiCalls";
-import  EventCard  from "../../common/EventCard/EventCard.jsx";
+import { GetEvents, JoinEvent } from "../../services/apiCalls";
+import { EventCard } from "../../common/EventCard/EventCard.jsx";
+import { updateDetail } from "../../slices/eventSlice.js";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export const Home = () => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [events, setEvents] = useState([]);
     const [joinedEvents, setJoinedEvents] = useState([]); // Lista de eventos a los que el usuario se ha unido
     const user = useSelector((state) => state.user.credentials);
+
+    const manageDetail = (event) => {
+        console.log(event, "event Detail");
+        dispatch(updateDetail({ detail: event }));
+
+        navigate("/detail");
+    }
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const fetched = await GetEvents(user.token);
-                console.log(fetched.data, "fetched");
                 if (fetched.data) {
                     setEvents(fetched.data);
                 } else {
-                    setEvents([]); 
+                    setEvents([]);
                 }
             } catch (error) {
                 console.error(error);
@@ -60,8 +71,12 @@ export const Home = () => {
         <div className="homeDesign">
             {filteredEvents.map(event => (
                 <div key={event.id}>
-                    <EventCard event={event} />
-                    <button onClick={() => joinUserEvent(event.id)}>Unirse al evento</button>
+                    <div onClick={() => manageDetail(event)}>
+                        <EventCard event={event} />
+                    </div>
+                    <button onClick={() => joinUserEvent(event.id)}>
+                        Unirse al evento
+                    </button>
                 </div>
             ))}
         </div>
