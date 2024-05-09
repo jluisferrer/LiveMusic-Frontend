@@ -22,7 +22,6 @@ export const Register = () => {
         nameError: "",
         roleError: "",
         passwordError: "",
-
     })
 
     const [msg, setMsg] = useState("")
@@ -106,7 +105,7 @@ export const Register = () => {
                     >
                         <option value="">Select your role</option>
                         <option value="user">User</option>
-                        {/* <option value="group">Group</option> */}
+                        {/* <option value="group">Group</option> futura implementacion*/}
                     </select>
                     <label>Password:</label>
                     <CInput
