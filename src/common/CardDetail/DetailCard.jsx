@@ -22,6 +22,7 @@ export const DetailCard = () => {
             <h2>{event.eventName}</h2>
             <p>{event.eventDate}</p>
             <p>{event.location}</p>
+            <h3>Grupos:</h3>
             <p>{event.groups.map((group)=>(
                 <li key={group.id}>{group.groupName}</li>           
             ))}</p>
