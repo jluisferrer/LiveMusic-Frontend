@@ -64,6 +64,7 @@ export const Profile = () => {
 
             // Realizar la llamada al backend para actualizar el perfil
             const updatedUser = await updateUser(updatedUserData, user.token);
+            toast.success("Profile updated successfully");
 
             // Actualizar el estado del usuario con los datos del usuario actualizado
             setEditMode(false);

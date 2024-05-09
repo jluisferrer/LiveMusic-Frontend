@@ -1,6 +1,6 @@
 import "./AdminEvents.css";
 import { useEffect, useState } from "react";
-import { GetEvents, createEvent, updateEvent, deleteEvent } from "../../services/apiCalls";
+import { GetEvents, createEvent, updateEvent, deleteEvent, joinGroupEvent, GetAllGroups } from "../../services/apiCalls";
 import { useSelector } from "react-redux";
 import { CInput } from "../../common/CInput/CInput";
 import { validame } from "../../utils/functions";
@@ -13,6 +13,8 @@ export const AdminEvents = () => {
     const [eventDateInput, setEventDateInput] = useState("");
     const [eventLocationInput, setEventLocationInput] = useState("");
     const [selectedEvent, setSelectedEvent] = useState(null);
+    const [groups, setGroups] = useState([]); // Estado para almacenar todos los grupos
+    const [selectedGroup, setSelectedGroup] = useState(null); // Estado para almacenar el grupo seleccionado
     const user = useSelector((state) => state.user.credentials);
 
     const [eventError, setEventError] = useState({
@@ -21,10 +23,57 @@ export const AdminEvents = () => {
         eventLocationError: "",
     });
 
+    const [groupError, setGroupError] = useState({
+        groupIdError: "",
+    });
+
+
     useEffect(() => {
         fetchEvents();
+        fetchGroups();
     }, []);
 
+    const fetchGroups = async () => {
+        try {
+            const response = await GetAllGroups(user.token);
+            console.log(response)
+            setGroups(response.data);
+        } catch (error) {
+            console.error(error)
+            return error;
+        }
+    };
+
+    const joinGroupToSelectedEvent = async () => {
+        if (selectedGroup && selectedEvent) {
+            try {
+                // Verificar si el grupo ya está añadido al evento
+                const existingGroup = selectedEvent.groups.find(group => group.id === selectedGroup.id);
+                if (existingGroup) {
+                    toast.warning("Group already added to event");
+                    return;
+                }
+    
+                // Añadir el grupo al evento
+                await joinGroupEvent(selectedGroup.id, selectedEvent.id, user.token);
+                fetchEvents(); // Actualiza la lista de eventos después de añadir el grupo al evento
+                toast.success("Group added to event successfully");
+            } catch (error) {
+                toast.error("Error adding group to event");
+                return error;
+            }
+        } else {
+            toast.error("Please select a group and an event");
+        }
+    };
+
+     // Función para manejar la selección de grupo
+     const handleGroupSelection = (group) => {
+        setSelectedGroup(group);
+        setGroupError({
+            groupIdError: "", // Limpia el error al seleccionar un nuevo grupo
+        });
+    };
 
     const fetchEvents = async () => {
         try {
@@ -181,6 +230,17 @@ export const AdminEvents = () => {
                     ))}
                 </tbody>
             </table>
+            <div>
+                <label>Groups:</label>
+                <select onChange={(e) => handleGroupSelection(groups.find(group => group.id === parseInt(e.target.value)))}>
+                    <option value="">Select Group</option>
+                    {groups && groups.map(group => (
+    <option key={group.id} value={group.id}>{group.groupName}</option>
+))}
+                </select>
+                {groupError.groupIdError && <div className="error-message">{groupError.groupIdError}</div>}
+            </div>
+            <button onClick={joinGroupToSelectedEvent}>Add Group to Event</button>
         </div>
     );
 }
