@@ -12,7 +12,7 @@ import { useDispatch } from "react-redux";
 export const Login = () => {
 
     const navigate = useNavigate();
-    const dispatch = useDispatch(); 
+    const dispatch = useDispatch();
 
     const [user, setUser] = useState({
         email: "",
@@ -31,15 +31,15 @@ export const Login = () => {
             if (fetched.token) {
                 // Hacer la petición a /profile
                 const profile = await GetUserProfile(fetched.token);
-                console.log(profile);  
-    
+                console.log(profile);
+
                 // Guardar los datos del perfil en el estado de Redux
                 const passport = {
                     token: fetched.token,
-                    user: profile.data,  
+                    user: profile.data,
                 }
                 dispatch(login({ credentials: passport }))
-    
+
                 setTimeout(() => {
                     navigate("/")
                 }, 2000);
@@ -47,7 +47,7 @@ export const Login = () => {
         } catch (error) {
             setMsgError(error.message);
         }
-    }   
+    }
     return (
         <div className="loginDesign">
             <CInput
@@ -56,7 +56,7 @@ export const Login = () => {
                 placeholder={"Email"}
                 value={user.email || ""}
                 changeEmit={inputHandler}
-                // onBlurFunction={(e) => checkError(e)}
+            // onBlurFunction={(e) => checkError(e)}
             />
             <CInput
                 type="password"
@@ -64,7 +64,7 @@ export const Login = () => {
                 placeholder={"Password"}
                 value={user.password || ""}
                 changeEmit={inputHandler}
-                // onBlurFunction={(e) => checkError(e)}
+            // onBlurFunction={(e) => checkError(e)}
             />
             <button onClick={loginMe}>Login</button>
         </div>

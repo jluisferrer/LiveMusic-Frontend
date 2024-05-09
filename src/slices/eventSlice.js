@@ -1,18 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export const detailSlice = createSlice({
-    name: 'detail',
-    initialState: {
-      detail: {}
+  name: 'detail',
+  initialState: {
+    detail: {}
+  },
+  reducers: {
+    updateDetail: (state, action) => {
+      return {
+        ...state,
+        ...action.payload
+      }
     },
-    reducers: {
-      updateDetail: (state, action) => {
-        return {
-          ...state,
-          ...action.payload
-        }
-      },
-    }
+  }
 
 });
 

@@ -3,7 +3,7 @@
     width: 100vw;
     overflow: auto;
 
-    background-color: #282828; 
+    background-color: #282828;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -11,14 +11,14 @@
     align-items: center;
 }
 
-.joinEventButton{
-background-color: #1DB954;
-color:white;
-font-weight: bold;
-margin-top: 1em;
+.joinEventButton {
+    background-color: #1DB954;
+    color: white;
+    font-weight: bold;
+    margin-top: 1em;
 }
 
-.joinEventButton:hover{
-background-color:#1ED760;
-cursor: pointer;
+.joinEventButton:hover {
+    background-color: #1ED760;
+    cursor: pointer;
 }

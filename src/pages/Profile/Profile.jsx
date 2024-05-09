@@ -49,7 +49,7 @@ export const Profile = () => {
             const emailError = validame("email", email);
             // const passwordError = validame("password", password);
 
-            if (nameError || emailError ) {
+            if (nameError || emailError) {
                 // Si hay algún error, muestra un mensaje y detiene la ejecución
                 toast.error("Error: Invalid input");
                 return;

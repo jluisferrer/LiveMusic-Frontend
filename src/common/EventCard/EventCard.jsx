@@ -1,7 +1,7 @@
 import "./EventCard.css";
 
 
-export const EventCard =({ event }) => {
+export const EventCard = ({ event }) => {
     return (
         <div className="eventCard">
             <h2>{event.eventName}</h2>

@@ -9,7 +9,7 @@ export const DetailCard = () => {
 
     const detailRdx = useSelector(detailData);
     console.log(detailRdx, "detailRdx, detail");
-    const [event, setEvent]=useState({
+    const [event, setEvent] = useState({
 
         eventName: detailRdx.detail.eventName,
         eventDate: detailRdx.detail.eventDate,
@@ -23,8 +23,8 @@ export const DetailCard = () => {
             <p>{event.eventDate}</p>
             <p>{event.location}</p>
             <h3>Grupos:</h3>
-            <p>{event.groups.map((group)=>(
-                <li key={group.id}>{group.groupName}</li>           
+            <p>{event.groups.map((group) => (
+                <li key={group.id}>{group.groupName}</li>
             ))}</p>
         </div>
     );

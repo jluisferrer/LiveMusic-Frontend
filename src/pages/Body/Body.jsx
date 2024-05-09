@@ -10,7 +10,7 @@ import { Detail } from "../Detail/Detail";
 export const Body = () => {
     return (
         <Routes>
-            <Route path="*" element={<Navigate to={"/"} replace/>} />
+            <Route path="*" element={<Navigate to={"/"} replace />} />
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />

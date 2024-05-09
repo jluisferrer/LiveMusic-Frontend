@@ -1,6 +1,6 @@
 import "./Admin.css";
 import { useEffect, useState } from "react";
-import { getAllUsers, deleteUser} from "../../services/apiCalls";
+import { getAllUsers, deleteUser } from "../../services/apiCalls";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { CInput } from "../../common/CInput/CInput";

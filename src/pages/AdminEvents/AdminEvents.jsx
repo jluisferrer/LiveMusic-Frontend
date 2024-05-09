@@ -69,7 +69,7 @@ export const AdminEvents = () => {
             setEventDateInput("");
             setEventLocationInput("");
         } catch (error) {
-           return error;
+            return error;
         }
     };
 

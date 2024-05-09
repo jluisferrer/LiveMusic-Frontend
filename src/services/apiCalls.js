@@ -241,7 +241,7 @@ export const createEvent = async (event, token) => {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`,
         },
-        body: JSON.stringify(event),  
+        body: JSON.stringify(event),
     };
     try {
         const response = await fetch(`${root}events`, options);
@@ -263,7 +263,7 @@ export const updateEvent = async (enventId, eventData, token) => {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`,
         },
-        body: JSON.stringify(eventData),  
+        body: JSON.stringify(eventData),
     };
     try {
         const response = await fetch(`${root}events/${enventId}`, options);
