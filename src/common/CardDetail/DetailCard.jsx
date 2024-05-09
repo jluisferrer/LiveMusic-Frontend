@@ -1,5 +1,5 @@
-import { useSelector } from "react-redux";
 import "./DetailCard.css";
+import { useSelector } from "react-redux";
 import { detailData } from "../../slices/eventSlice";
 import { useState } from "react";
 

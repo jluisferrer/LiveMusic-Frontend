@@ -74,7 +74,7 @@ export const Home = () => {
                     <div onClick={() => manageDetail(event)}>
                         <EventCard event={event} />
                     </div>
-                    <button onClick={() => joinUserEvent(event.id)}>
+                    <button className="joinEventButton" onClick={() => joinUserEvent(event.id)}>
                         Unirse al evento
                     </button>
                 </div>

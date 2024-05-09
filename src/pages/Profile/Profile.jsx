@@ -24,20 +24,20 @@ export const Profile = () => {
     const [userError, setUserError] = useState({
         nameError: "",
         emailError: "",
-        passwordError: "",
+        // passwordError: "",
     });
 
-    const handleNameChange = (e) => {
+    const nameChange = (e) => {
         setName(e.target.value);
         checkError(e.target.name, e.target.value);
     };
 
-    const handleEmailChange = (e) => {
+    const emailChange = (e) => {
         setEmail(e.target.value);
         checkError(e.target.name, e.target.value);
     };
 
-    const handlePasswordChange = (e) => {
+    const passwordChange = (e) => {
         setPassword(e.target.value);
         checkError(e.target.name, e.target.value);
     };
@@ -47,9 +47,9 @@ export const Profile = () => {
             // Valida los campos de entrada antes de guardar
             const nameError = validame("name", name);
             const emailError = validame("email", email);
-            const passwordError = validame("password", password);
+            // const passwordError = validame("password", password);
 
-            if (nameError || emailError || passwordError) {
+            if (nameError || emailError ) {
                 // Si hay algún error, muestra un mensaje y detiene la ejecución
                 toast.error("Error: Invalid input");
                 return;
@@ -103,7 +103,6 @@ export const Profile = () => {
         // Actualiza el nombre y el correo electrónico cuando cambia el usuario en el estado
         setName(user ? user.user.name : "");
         setEmail(user ? user.user.email : "");
-        setPassword(user ? user.user.password : "");
     }, [user]);
 
     const removeUserEvent = async (eventId) => {
@@ -148,7 +147,7 @@ export const Profile = () => {
                         placeholder="Nombre"
                         name="name"
                         value={name}
-                        changeEmit={handleNameChange}
+                        changeEmit={nameChange}
                         onBlurFunction={() => checkError("name", name)}
                         disabled={!editMode}
                     />
@@ -159,22 +158,19 @@ export const Profile = () => {
                         placeholder="Correo electrónico"
                         name="email"
                         value={email}
-                        changeEmit={handleEmailChange}
+                        changeEmit={emailChange}
                         onBlurFunction={() => checkError("email", email)}
                         disabled={!editMode}
                     />
                     <CInput
-                        className={`inputDesign ${userError.passwordError !== "" ? "inputDesignError" : ""
-                            }`}
                         type="password"
                         placeholder="Contraseña"
                         name="password"
                         value={password}
-                        changeEmit={handlePasswordChange}
-                        onBlurFunction={() => checkError("password", password)}
+                        changeEmit={passwordChange}
                         disabled={!editMode}
                     />
-                    <button onClick={editMode ? handleSave : () => setEditMode(true)}>
+                    <button className="editButton" onClick={editMode ? handleSave : () => setEditMode(true)}>
                         {editMode ? "Guardar" : "Editar"}
                     </button>
                 </>
@@ -182,7 +178,7 @@ export const Profile = () => {
             {userEvents.map((event, index) => (
                 <div key={`${event.id}-${index}`}>
                     <EventCard event={event} />
-                    <button onClick={() => removeUserEvent(event.id)}>Remove</button>
+                    <button className="removeEventButton" onClick={() => removeUserEvent(event.id)}>Remove</button>
                 </div>
             ))}
         </div>
