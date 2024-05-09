@@ -51,6 +51,7 @@ export const Register = () => {
             }
 
             const fetched = await RegisterUser(user);
+          
 
             console.log(fetched);
             setMsg("Register completed");
@@ -63,7 +64,7 @@ export const Register = () => {
         }
     };
     return (
-        <div className="register-design">
+        <div className="registerDesign">
             {msg === "" ? (
                 <div className="registerDesign">
                     <div className="error">{msgError}</div>

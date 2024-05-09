@@ -2,7 +2,7 @@
     height: 80vh;
     width: 100vw;
     overflow: auto;
-    background-color: #282828; 
+    background-color: #282828;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -30,8 +30,8 @@
 .adminDesign table th,
 .adminDesign table td {
     padding: 12px 15px;
-    
-  
+
+
 }
 
 .adminDesign table tbody tr {
@@ -55,6 +55,7 @@
 
 .adminDesign table tbody tr:hover {
     background-color: #606060;
+    cursor: pointer;
 }
 
 .adminDesign table tbody tr td:last-child {
@@ -73,4 +74,5 @@
 
 .adminDesign table tbody tr td:last-child button:hover {
     background-color: #007f5f;
+    cursor: pointer;
 }

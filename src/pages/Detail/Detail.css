@@ -1,4 +1,4 @@
-.registerDesign {
+.detailDesign {
     height: 80vh;
     width: 100vw;
     overflow: auto;
@@ -6,7 +6,6 @@
     background-color: #282828;
     display: flex;
     flex-direction: column;
-    /* flex-wrap: wrap; */
     justify-content: center;
     align-items: center;
 }

@@ -1,6 +1,7 @@
 import "./EventCard.css";
 
-function EventCard({ event }) {
+
+export const EventCard = ({ event }) => {
     return (
         <div className="eventCard">
             <h2>{event.eventName}</h2>
@@ -20,4 +21,3 @@ function EventCard({ event }) {
     );
 }
 
-export default EventCard;

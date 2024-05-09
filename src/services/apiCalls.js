@@ -213,6 +213,26 @@ export const GetAllGroups = async (token) => {
     }
 };
 
+export const joinGroupEvent = async (groupId, eventId, token) => {
+    const options = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+        },
+    };
+    try {
+        const response = await fetch(`${root}usergroupevents/${groupId}/${eventId}`, options);
+        const data = await response.json();
+
+        if (!data.success) {
+            throw new Error(data.message);
+        }
+        return data;
+    } catch (error) {
+        return error;
+    }
+};
 export const deleteUserEvent = async (eventId, token) => {
     const options = {
         method: "DELETE",
@@ -241,7 +261,7 @@ export const createEvent = async (event, token) => {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`,
         },
-        body: JSON.stringify(event),  
+        body: JSON.stringify(event),
     };
     try {
         const response = await fetch(`${root}events`, options);
@@ -263,7 +283,7 @@ export const updateEvent = async (enventId, eventData, token) => {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`,
         },
-        body: JSON.stringify(eventData),  
+        body: JSON.stringify(eventData),
     };
     try {
         const response = await fetch(`${root}events/${enventId}`, options);
