@@ -86,14 +86,16 @@ export const Profile = () => {
             const fetchUserEvents = async () => {
                 try {
                     const fetched = await GetUserEvents(user.token);
-                    console.log(fetched.data, "fetched events");
+                    toast.success("Events retrieved successfully");
+                    
                     if (fetched.data) {
                         setUserEvents(fetched.data);
                     } else {
                         setUserEvents([]); // Establece el estado como un array vacío si fetched.data es undefined
                     }
                 } catch (error) {
-                    console.error(error);
+                    toast.error("Error retrieving events");
+                   
                 }
             }
             fetchUserEvents();
@@ -113,11 +115,12 @@ export const Profile = () => {
                 // Actualizar la lista de eventos del usuario después de eliminar el evento
                 const updatedEvents = userEvents.filter((event) => event.id !== eventId);
                 setUserEvents(updatedEvents);
-                console.log("Event removed successfully");
+                toast.success("Event removed successfully");
             } else {
                 console.error(response.message);
             }
         } catch (error) {
+            toast.error("Error removing event");
             console.error("Error removing event:", error);
         }
     };

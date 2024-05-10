@@ -9,6 +9,9 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export const Admin = () => {
     const [users, setUsers] = useState([]);
+    const [page, setPage] = useState(1);
+    const [lastPage, setLastPage] = useState(1); // Añade un estado para la última página
+    const [nextPageUrl, setNextPageUrl] = useState(null); // Añade un estado para la URL de la 
     const [events, setEvents] = useState([]);
     const [eventNameInput, setEventNameInput] = useState("");
     const [eventDateInput, setEventDateInput] = useState("");
@@ -19,12 +22,14 @@ export const Admin = () => {
 
     useEffect(() => {
         fetchUsers();
-    }, []);
+    }, [page]);
 
     const fetchUsers = async () => {
         try {
-            const response = await getAllUsers(user.token);
-            setUsers(response.data);
+            const response = await getAllUsers(user.token, page);
+            setUsers(response.data.data);
+            setLastPage(response.data.last_page); // Guarda la última página
+            setNextPageUrl(response.data.next_page_url); // Guarda la URL de la próxima página
         } catch (error) {
             console.log(error);
         }
@@ -69,6 +74,8 @@ export const Admin = () => {
                         ))}
                     </tbody>
                 </table>
+                <button onClick={() => setPage(prevPage => Math.max(prevPage - 1, 1))} disabled={page === 1}>Previous page</button>
+                <button onClick={() => setPage(prevPage => Math.min(prevPage + 1, lastPage))} disabled={!nextPageUrl}>Next page</button>
             </div>
         </div>
     );

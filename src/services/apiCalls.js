@@ -85,7 +85,7 @@ export const RegisterUser = async (user) => {
     }
 }
 
-export const getAllUsers = async (token) => {
+export const getAllUsers = async (token, currentPage) => {
     const options = {
         method: "GET",
         headers: {
@@ -94,7 +94,7 @@ export const getAllUsers = async (token) => {
         },
     }
     try {
-        const response = await fetch(`${root}users`, options)
+        const response = await fetch(`${root}users?page=${currentPage}`, options)
         const data = await response.json()
 
         if (!data.success) {
