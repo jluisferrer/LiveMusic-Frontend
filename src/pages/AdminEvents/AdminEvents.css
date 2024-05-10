@@ -2,7 +2,7 @@
     height: 80vh;
     width: 100vw;
     overflow: auto;
-    background-color: #202020;
+    /* background-color: #202020; */
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -73,4 +73,22 @@
 .adminEventDesign table tbody tr td:last-child button:hover {
     background-color: #005f3f;
     cursor: pointer;
+}
+
+.modfyEvents {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* flex-direction: row; */
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.tableEvents{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    /* flex-wrap: wrap; */
+    width: 100%;
 }

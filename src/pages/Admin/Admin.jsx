@@ -4,6 +4,8 @@ import { getAllUsers, deleteUser } from "../../services/apiCalls";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { CInput } from "../../common/CInput/CInput";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const Admin = () => {
     const [users, setUsers] = useState([]);
@@ -31,13 +33,15 @@ export const Admin = () => {
     const DeleteUser = async (userId) => {
         try {
             await deleteUser(userId, user.token);
+            toast.success("User deleted successfully");
             fetchUsers();
         } catch (error) {
-            console.log(error);
+            toast.error("Error deleting user");
         }
     };
     return (
         <div className="adminDesign">
+            <ToastContainer />
             <div className="adminDesign">
                 <h2>Users</h2>
                 <table>

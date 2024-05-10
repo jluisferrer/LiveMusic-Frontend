@@ -75,7 +75,7 @@ export const Profile = () => {
             // Actualizar el estado de Redux con los nuevos datos del perfil
             dispatch(login({ credentials: { token: user.token, user: profile.data } }));
         } catch (error) {
-            console.error(error);
+            toast.error("Error updating profile");
         }
     };
 
