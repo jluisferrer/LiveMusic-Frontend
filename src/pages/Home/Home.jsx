@@ -19,7 +19,6 @@ export const Home = () => {
     const user = useSelector((state) => state.user.credentials);
 
     const manageDetail = (event) => {
-        console.log(event, "event Detail");
         dispatch(updateDetail({ detail: event }));
         toast.success("Event detail");
 

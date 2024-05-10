@@ -8,7 +8,6 @@ export const DetailCard = () => {
 
 
     const detailRdx = useSelector(detailData);
-    console.log(detailRdx, "detailRdx, detail");
     const [event, setEvent] = useState({
 
         eventName: detailRdx.detail.eventName,

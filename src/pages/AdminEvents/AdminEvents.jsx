@@ -36,7 +36,6 @@ export const AdminEvents = () => {
     const fetchGroups = async () => {
         try {
             const response = await GetAllGroups(user.token);
-            console.log(response)
             setGroups(response.data);
         } catch (error) {
             console.error(error)

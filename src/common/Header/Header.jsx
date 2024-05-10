@@ -11,7 +11,6 @@ export const Header = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        console.log(rdxUser, " credenciales pasaporte");
     }, [rdxUser]);
 
     return (
