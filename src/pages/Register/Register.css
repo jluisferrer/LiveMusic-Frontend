@@ -2,6 +2,8 @@
     height: 80vh;
     width: 100vw;
     overflow: auto;
+    font-weight: bold;
+    color: gray;
 
     /* background-color: #282828; */
     display: flex;

@@ -5,12 +5,10 @@ import { useState } from "react";
 
 
 export const DetailCard = () => {
-
-
     const detailRdx = useSelector(detailData);
     const [event, setEvent] = useState({
-
         eventName: detailRdx.detail.eventName,
+        eventDescription: detailRdx.detail.eventDescription,
         eventDate: detailRdx.detail.eventDate,
         location: detailRdx.detail.location,
         groups: detailRdx.detail.groups,
@@ -20,11 +18,14 @@ export const DetailCard = () => {
         <div className="detailCard">
             <h2>{event.eventName}</h2>
             <p>{event.eventDate}</p>
-            <p>{event.location}</p>
+            <p>{event.eventDescription}</p>
+            <p>Localizacion: {event.location}</p>
             <h3>Grupos:</h3>
-            <p>{event.groups.map((group) => (
-                <li key={group.id}>{group.groupName}</li>
-            ))}</p>
+            <ul>
+                {event.groups.map((group) => (
+                    <li key={group.id}>{group.groupName}</li>
+                ))}
+            </ul>
         </div>
     );
 }
