@@ -1,10 +1,26 @@
 .footerDesign {
     height: 8vh;
     width: 100vw;
-    background-color: #1DB954;
-    color: white;
+    background-color: rgba(29, 185, 84, 0.2); 
+    color: rgba(255, 255, 255, 0.8); 
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
+}
+.footerDesign:hover {
+    color: rgba(255, 255, 255, 10); 
+    cursor: pointer;
+}
+.socialMediaIcons {
+    flex-direction: row;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.socialMediaIcons span {
+    cursor: pointer;
 }
