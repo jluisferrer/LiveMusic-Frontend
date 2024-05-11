@@ -90,7 +90,7 @@ export const Login = () => {
                 changeEmit={inputHandler}
                 onBlurFunction={(e) => checkError(e)}
             />
-            <button onClick={loginMe}>Login</button>
+            <button className="login" onClick={loginMe}>Login</button>
         </div>
     )
 }

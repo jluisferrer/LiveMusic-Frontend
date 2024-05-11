@@ -118,7 +118,7 @@ export const Register = () => {
                         changeEmit={(e) => inputHandler(e)}
                         onBlurFunction={(e) => checkError(e)}
                     />
-                    <button onClick={registerMe}>Register</button>
+                    <button className="register" onClick={registerMe}>Register</button>
                 </div>
             ) : (
                 <div>

@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { CLink } from "../CLink/CLink"
 import "./Header.css"
 import React, { useEffect } from "react"
-import { logout, userData } from "../../slices/userSlice"
+import { logout} from "../../slices/userSlice"
 import { useNavigate } from "react-router-dom"
 
 export const Header = () => {
@@ -22,8 +22,8 @@ export const Header = () => {
                     <CLink path="/profile" title={rdxUser?.credentials?.user?.name} />
                     {rdxUser.credentials.user.role === "super_admin" ? (
                         <div className="adminDiv">
-                            <CLink path={"/admin"} title={"Adminuser"} />
-                            <CLink path={"/admin2"} title={"Adminevents"} />
+                            <CLink path={"/admin"} title={"AdminUsers"} />
+                            <CLink path={"/admin2"} title={"AdminEvents"} />
                         </div>
                     ) : null}
                     <div
@@ -33,7 +33,7 @@ export const Header = () => {
                             navigate("/login");
                         }}
                     >
-                        log out
+                        Log out
                     </div>
                 </div>
             ) : (

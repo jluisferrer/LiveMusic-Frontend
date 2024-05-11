@@ -207,7 +207,6 @@ export const AdminEvents = () => {
                 </div>
                 <button onClick={CreateEvent}>Create Event</button>
                 <div>
-                    <label>Groups:</label>
                     <select onChange={(e) => handleGroupSelection(groups.find(group => group.id === parseInt(e.target.value)))}>
                         <option value="">Select Group</option>
                         {groups && groups.map(group => (

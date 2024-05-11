@@ -12,3 +12,21 @@
     justify-content: center;
     align-items: center;
 }
+
+.register {
+    background-color: #282828; /* Puedes cambiar este color a tu gusto */
+    color: #fff; /* Color del texto */
+    border: none; /* Quita el borde del botón */
+    padding: 10px 20px; /* Espacio alrededor del texto */
+    text-align: center; /* Alinea el texto al centro */
+    text-decoration: none; /* Quita el subrayado */
+    display: inline-block;
+    font-size: 16px; /* Tamaño del texto */
+    margin: 4px 2px;
+    cursor: pointer; /* Cambia el cursor al pasar el ratón */
+    border-radius: 12px; /* Bordes redondeados */
+}
+
+.register:hover {
+    background-color: #555; /* Cambia el color de fondo al pasar el ratón */
+}
