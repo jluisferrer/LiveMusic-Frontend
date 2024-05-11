@@ -2,12 +2,44 @@
     height: 80vh;
     width: 100vw;
     overflow: auto;
-    background-color: #202020;
+    /* background-color: #202020; */
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+}
+
+.adminEventDesign button {
+    background-color: #282828; /* Puedes cambiar este color a tu gusto */
+    color: #fff; /* Color del texto */
+    border: none; /* Quita el borde del botón */
+    padding: 10px 20px; /* Espacio alrededor del texto */
+    text-align: center; /* Alinea el texto al centro */
+    text-decoration: none; /* Quita el subrayado */
+    display: inline-block;
+    font-size: 16px; /* Tamaño del texto */
+    margin: 4px 2px;
+    cursor: pointer; /* Cambia el cursor al pasar el ratón */
+    border-radius: 12px; /* Bordes redondeados */
+}
+
+.adminEventDesign button:hover {
+    background-color: #555; /* Cambia el color de fondo al pasar el ratón */
+}
+
+.adminEventDesign select {
+    background-color: #282828; /* Puedes cambiar este color a tu gusto */
+    color: #fff; /* Color del texto */
+    border: none; /* Quita el borde del botón */
+    padding: 10px 20px; /* Espacio alrededor del texto */
+    text-align: center; /* Alinea el texto al centro */
+    text-decoration: none; /* Quita el subrayado */
+    display: inline-block;
+    font-size: 16px; /* Tamaño del texto */
+    margin: 4px 2px;
+    cursor: pointer; /* Cambia el cursor al pasar el ratón */
+    border-radius: 12px; /* Bordes redondeados */
 }
 
 .adminEventDesign table {
@@ -73,4 +105,22 @@
 .adminEventDesign table tbody tr td:last-child button:hover {
     background-color: #005f3f;
     cursor: pointer;
+}
+
+.modfyEvents {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.tableEvents{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 100%;
 }

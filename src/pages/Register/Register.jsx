@@ -5,6 +5,8 @@ import { useState } from "react";
 import { CInput } from "../../common/CInput/CInput";
 import { RegisterUser } from "../../services/apiCalls";
 import { validame } from "../../utils/functions";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const Register = () => {
     const navigate = useNavigate();
@@ -20,7 +22,6 @@ export const Register = () => {
         nameError: "",
         roleError: "",
         passwordError: "",
-
     })
 
     const [msg, setMsg] = useState("")
@@ -40,6 +41,10 @@ export const Register = () => {
             ...prevState,
             [e.target.name + "Error"]: error,
         }))
+
+        if (error) {
+            toast.error(error);
+        }
     }
 
     const registerMe = async () => {
@@ -50,10 +55,8 @@ export const Register = () => {
                 }
             }
 
-            const fetched = await RegisterUser(user);
-          
-
-            console.log(fetched);
+            await RegisterUser(user);
+            toast.success("Register completed");
             setMsg("Register completed");
 
             setTimeout(() => {
@@ -61,10 +64,12 @@ export const Register = () => {
             }, 3000);
         } catch (error) {
             setMsgError(error.message);
+            toast.error(error.message);
         }
     };
     return (
         <div className="registerDesign">
+            <ToastContainer />
             {msg === "" ? (
                 <div className="registerDesign">
                     <div className="error">{msgError}</div>
@@ -79,7 +84,6 @@ export const Register = () => {
                         changeEmit={(e) => inputHandler(e)}
                         onBlurFunction={(e) => checkError(e)}
                     />
-                    <div className="inputDesignError">{userError.emailError}</div>
                     <label className="white-color">Name:</label>
                     <CInput
                         className={`inputDesign ${userError.nameError !== "" ? "inputDesignError" : ""
@@ -91,7 +95,6 @@ export const Register = () => {
                         changeEmit={(e) => inputHandler(e)}
                         onBlurFunction={(e) => checkError(e)}
                     />
-                    <div className="inputDesignError">{userError.nameError}</div>
                     <label>Role:</label>
                     <select
                         className={`inputDesign ${userError.roleError !== "" ? "inputDesignError" : ""}`}
@@ -102,9 +105,8 @@ export const Register = () => {
                     >
                         <option value="">Select your role</option>
                         <option value="user">User</option>
-                        <option value="group">Group</option>
+                        {/* <option value="group">Group</option> futura implementacion*/}
                     </select>
-                    <div className="inputDesignError">{userError.roleError}</div>
                     <label>Password:</label>
                     <CInput
                         className={`inputDesign ${userError.passwordError !== "" ? "inputDesignError" : ""
@@ -116,8 +118,7 @@ export const Register = () => {
                         changeEmit={(e) => inputHandler(e)}
                         onBlurFunction={(e) => checkError(e)}
                     />
-                    <div className="inputDesignError">{userError.passwordError}</div>
-                    <button onClick={registerMe}>Register</button>
+                    <button className="register" onClick={registerMe}>Register</button>
                 </div>
             ) : (
                 <div>

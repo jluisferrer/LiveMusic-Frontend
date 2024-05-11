@@ -3,7 +3,7 @@
     width: 100vw;
     overflow: auto;
 
-    background-color: #282828;
+    /* background-color: #282828; */
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -15,7 +15,7 @@
     background-color: red;
     color: white;
     font-weight: bold;
-    margin-top: 1em;
+    /* margin-top: 1em; */
 }
 
 .removeEventButton:hover {
@@ -27,7 +27,7 @@
     background-color: #1DB954;
     color: white;
     font-weight: bold;
-    margin-top: 1em;
+    /* margin-top: 1em; */
 }
 
 .editButton:hover {

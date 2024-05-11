@@ -5,6 +5,9 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../slices/userSlice";
 import { useDispatch } from "react-redux";
+import { validame } from "../../utils/functions";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -18,11 +21,30 @@ export const Login = () => {
         email: "",
         password: ""
     })
+
+    const [userError, setUserError] = useState({
+        emailError: "",
+        passwordError: "",
+    })
+
     const inputHandler = (e) => {
         setUser((prevState) => ({
             ...prevState,
             [e.target.name]: e.target.value
         }))
+    }
+
+    const checkError = (e) => {
+        const error = validame(e.target.name, e.target.value)
+
+        setUserError((prevState) => ({
+            ...prevState,
+            [e.target.name + "Error"]: error,
+        }))
+
+        if (error) {
+            toast.error(error);
+        }
     }
 
     const loginMe = async () => {
@@ -39,34 +61,36 @@ export const Login = () => {
                     user: profile.data,
                 }
                 dispatch(login({ credentials: passport }))
+                toast.success("Login completed");
 
                 setTimeout(() => {
                     navigate("/")
-                }, 2000);
+                }, 1000);
             }
         } catch (error) {
-            setMsgError(error.message);
+            toast.error(error.message);
         }
     }
     return (
         <div className="loginDesign">
-            <CInput
+            <ToastContainer />
+            <CInput className={`inputDesign ${userError.emailError !== "" ? "inputDesignError" : ""}`}
                 type="email"
                 name="email"
                 placeholder={"Email"}
                 value={user.email || ""}
                 changeEmit={inputHandler}
-            // onBlurFunction={(e) => checkError(e)}
+                onBlurFunction={(e) => checkError(e)}
             />
-            <CInput
+            <CInput className={`inputDesign ${userError.passwordError !== "" ? "inputDesignError" : ""}`}
                 type="password"
                 name="password"
                 placeholder={"Password"}
                 value={user.password || ""}
                 changeEmit={inputHandler}
-            // onBlurFunction={(e) => checkError(e)}
+                onBlurFunction={(e) => checkError(e)}
             />
-            <button onClick={loginMe}>Login</button>
+            <button className="login" onClick={loginMe}>Login</button>
         </div>
     )
 }

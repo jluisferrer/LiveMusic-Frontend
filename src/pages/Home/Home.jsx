@@ -7,6 +7,9 @@ import { EventCard } from "../../common/EventCard/EventCard.jsx";
 import { updateDetail } from "../../slices/eventSlice.js";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { validame } from "../../utils/functions.js";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const Home = () => {
     const navigate = useNavigate();
@@ -16,8 +19,8 @@ export const Home = () => {
     const user = useSelector((state) => state.user.credentials);
 
     const manageDetail = (event) => {
-        console.log(event, "event Detail");
         dispatch(updateDetail({ detail: event }));
+        toast.success("Event detail");
 
         navigate("/detail");
     }
@@ -26,13 +29,14 @@ export const Home = () => {
         const fetchData = async () => {
             try {
                 const fetched = await GetEvents(user.token);
+                toast.success("Events retrieved successfully");
                 if (fetched.data) {
                     setEvents(fetched.data);
                 } else {
                     setEvents([]);
                 }
             } catch (error) {
-                console.error(error);
+                toast.error("Error retrieving events");
                 setEvents([]);
             }
         };
@@ -44,13 +48,13 @@ export const Home = () => {
 
     const joinUserEvent = async (eventId) => {
         try {
-            const fetched = await JoinEvent(eventId, user.token);
-            console.log(fetched, "fetched join event");
+            await JoinEvent(eventId, user.token);
 
             // Agrega el evento unido a la lista de eventos joinedos
             setJoinedEvents([...joinedEvents, eventId]);
+            toast.success("User joined event");
         } catch (error) {
-            console.error(error);
+            toast.error("Error joining user to event");
         }
     };
 
@@ -69,6 +73,7 @@ export const Home = () => {
 
     return (
         <div className="homeDesign">
+            <ToastContainer />
             {filteredEvents.map(event => (
                 <div key={event.id}>
                     <div onClick={() => manageDetail(event)}>

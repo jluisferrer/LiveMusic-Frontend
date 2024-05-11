@@ -2,11 +2,16 @@
     height: 12vh;
     width: 100vw;
 
-    background-color: #1DB954; 
+    background-color: rgba(29, 185, 84, 0.3); 
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
     align-items: flex-end;
+}
+
+.headerDesign:hover {
+    color: rgba(255, 255, 255, 10); 
+    cursor: pointer;
 }
 .adminDiv{
     display: flex;
@@ -16,13 +21,14 @@
 
 
 .outDesign {
-    color: white;
+    color: rgba(255, 255, 255, 0.8); 
     font-weight: bold;
 
     margin: 1em;
     transition: 0.3s;
 
 }
+
 
 .navigatorDesign {
     display: flex;
@@ -31,6 +37,6 @@
 
 .outDesign:hover {
     transition: 0.3s;
-    color: #1DB954;
+    color: rgba(255, 255, 255, 0.183); 
     cursor: pointer;
 }

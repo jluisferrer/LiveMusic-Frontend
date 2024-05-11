@@ -36,7 +36,6 @@ export const AdminEvents = () => {
     const fetchGroups = async () => {
         try {
             const response = await GetAllGroups(user.token);
-            console.log(response)
             setGroups(response.data);
         } catch (error) {
             console.error(error)
@@ -53,7 +52,7 @@ export const AdminEvents = () => {
                     toast.warning("Group already added to event");
                     return;
                 }
-    
+
                 // Añadir el grupo al evento
                 await joinGroupEvent(selectedGroup.id, selectedEvent.id, user.token);
                 fetchEvents(); // Actualiza la lista de eventos después de añadir el grupo al evento
@@ -67,8 +66,8 @@ export const AdminEvents = () => {
         }
     };
 
-     // Función para manejar la selección de grupo
-     const handleGroupSelection = (group) => {
+    // Función para manejar la selección de grupo
+    const handleGroupSelection = (group) => {
         setSelectedGroup(group);
         setGroupError({
             groupIdError: "", // Limpia el error al seleccionar un nuevo grupo
@@ -88,6 +87,7 @@ export const AdminEvents = () => {
     const DeleteEvent = async (eventId) => {
         try {
             await deleteEvent(eventId, user.token);
+            toast.success("Event deleted successfully");
             fetchEvents();
         } catch (error) {
             return error;
@@ -112,6 +112,7 @@ export const AdminEvents = () => {
                 location: eventLocationInput
             };
             await createEvent(eventData, user.token);
+            toast.success("Event created successfully");
             fetchEvents();
             // Limpia los inputs después de crear el evento
             setEventNameInput("");
@@ -138,6 +139,7 @@ export const AdminEvents = () => {
             };
             try {
                 await updateEvent(selectedEvent.id, updatedEventData, user.token);
+                toast.success("Event updated successfully");
                 fetchEvents();
                 setSelectedEvent(null);
                 setEventNameInput("");
@@ -165,82 +167,85 @@ export const AdminEvents = () => {
     return (
         <div className="adminEventDesign">
             <ToastContainer />
-            <h2>Events</h2>
-            <div>
-                <label>Event Name:</label>
-                <CInput
-                    className={`inputDesign ${eventError.eventNameError !== "" ? "inputDesignError" : ""
-                        }`}
-                    type="text"
-                    placeholder={"Event Name"}
-                    value={eventNameInput || ""}
-                    changeEmit={(e) => setEventNameInput(e.target.value)}
-                    onBlurFunction={() => checkError("eventName", eventNameInput)}
-                />
+            {/* <h2>Events</h2> */}
+            <div className="modfyEvents">
+                <div>
+                    <label>Event Name:</label>
+                    <CInput
+                        className={`inputDesign ${eventError.eventNameError !== "" ? "inputDesignError" : ""
+                            }`}
+                        type="text"
+                        placeholder={"Event Name"}
+                        value={eventNameInput || ""}
+                        changeEmit={(e) => setEventNameInput(e.target.value)}
+                        onBlurFunction={() => checkError("eventName", eventNameInput)}
+                    />
+                </div>
+                <div>
+                    <label>Event Date:</label>
+                    <CInput
+                        className={`inputDesign ${eventError.eventDateError !== "" ? "inputDesignError" : ""
+                            }`}
+                        type="text"
+                        placeholder={"YYYY-MM-DD"}
+                        value={eventDateInput}
+                        changeEmit={(e) => setEventDateInput(e.target.value)}
+                        onBlurFunction={() => checkError("eventDate", eventDateInput)}
+                    />
+                </div>
+                <div>
+                    <label>Event Location:</label>
+                    <CInput
+                        className={`inputDesign ${eventError.eventLocationError !== "" ? "inputDesignError" : ""
+                            }`}
+                        type="text"
+                        placeholder={"Event Location"}
+                        value={eventLocationInput}
+                        changeEmit={(e) => setEventLocationInput(e.target.value)}
+                        onBlurFunction={() => checkError("eventLocation", eventLocationInput)}
+                    />
+                </div>
+                <button onClick={CreateEvent}>Create Event</button>
+                <div>
+                    <select onChange={(e) => handleGroupSelection(groups.find(group => group.id === parseInt(e.target.value)))}>
+                        <option value="">Select Group</option>
+                        {groups && groups.map(group => (
+                            <option key={group.id} value={group.id}>{group.groupName}</option>
+                        ))}
+                    </select>
+                    {groupError.groupIdError && <div className="error-message">{groupError.groupIdError}</div>}
+                </div>
+                <button onClick={joinGroupToSelectedEvent}>Add Group to Event</button>
             </div>
-            <div>
-                <label>Event Date:</label>
-                <CInput
-                    className={`inputDesign ${eventError.eventDateError !== "" ? "inputDesignError" : ""
-                        }`}
-                    type="text"
-                    placeholder={"YYYY-MM-DD"}
-                    value={eventDateInput}
-                    changeEmit={(e) => setEventDateInput(e.target.value)}
-                    onBlurFunction={() => checkError("eventDate", eventDateInput)}
-                />
-            </div>
-            <div>
-                <label>Event Location:</label>
-                <CInput
-                    className={`inputDesign ${eventError.eventLocationError !== "" ? "inputDesignError" : ""
-                        }`}
-                    type="text"
-                    placeholder={"Event Location"}
-                    value={eventLocationInput}
-                    changeEmit={(e) => setEventLocationInput(e.target.value)}
-                    onBlurFunction={() => checkError("eventLocation", eventLocationInput)}
-                />
-            </div>
-            <button onClick={CreateEvent}>Create Event</button>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Event Name</th>
-                        <th>Date</th>
-                        <th>Location</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {events.map((event) => (
-                        <tr key={event.id} onClick={() => selectEvent(event)}>
-                            <td>{event.id}</td>
-                            <td>{event.eventName}</td>
-                            <td>{event.eventDate}</td>
-                            <td>{event.location}</td>
-                            <td>
-                                <button onClick={() => DeleteEvent(event.id)}>Delete</button>
-                                {selectedEvent && selectedEvent.id === event.id && (
-                                    <button onClick={eventUpdate}>Update</button>
-                                )}
-                            </td>
+            <div className="tableEvents">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Event Name</th>
+                            <th>Date</th>
+                            <th>Location</th>
+                            <th>Action</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
-            <div>
-                <label>Groups:</label>
-                <select onChange={(e) => handleGroupSelection(groups.find(group => group.id === parseInt(e.target.value)))}>
-                    <option value="">Select Group</option>
-                    {groups && groups.map(group => (
-    <option key={group.id} value={group.id}>{group.groupName}</option>
-))}
-                </select>
-                {groupError.groupIdError && <div className="error-message">{groupError.groupIdError}</div>}
+                    </thead>
+                    <tbody>
+                        {events.map((event) => (
+                            <tr key={event.id} onClick={() => selectEvent(event)}>
+                                <td>{event.id}</td>
+                                <td>{event.eventName}</td>
+                                <td>{event.eventDate}</td>
+                                <td>{event.location}</td>
+                                <td>
+                                    <button onClick={() => DeleteEvent(event.id)}>Delete</button>
+                                    {selectedEvent && selectedEvent.id === event.id && (
+                                        <button onClick={eventUpdate}>Update</button>
+                                    )}
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             </div>
-            <button onClick={joinGroupToSelectedEvent}>Add Group to Event</button>
         </div>
     );
 }
