@@ -1,4 +1,4 @@
-<h1 align="center"> PROJECT BACKEND: Live Music </h1>
+![register](https://github.com/jluisferrer/LiveMusic-Frontend/assets/157707370/d9329e0e-bbb9-4099-92df-bd7ae5618b5e)<h1 align="center"> PROJECT FRONTEND: Live Music </h1>
 
 <p align="center">
   <img src="./public/img/title_Readme.gif" alt="Demostración de funcionalidad">
@@ -10,23 +10,26 @@
 1. [Description :classical_building:](#description-classical_building)
 2. [Stack :gear:](#stack-gear)
 3. [Project :open_book:](#Project-open_book)
-4. [Author :wave:](#author-wave)
+4. [Libraries :open_book:](#Project-open_book)
+5. [Future implementations :chart_with_upwards_trend:](#Future implementations-chart_with_upwards_trend)
+6. [Author :wave:](#author-wave)
 
 ---
 
 ## Description :classical_building:
 
-Hola!! aquí está la presentación de la parte de Backend del proyecto Live Music, un lugar donde estar informad@ de las últimas novedades en festivales con tus grupos favoritos y reservar rápidamente tus entradas con la mayor comodidad.
+Hola!! esta es la presentación de la parte de Frontend del proyecto Live Music, al registrarte accederás un sitio en el que podrás personalizar tu perfil y estar informad@ de las últimas novedades en festivales con tus grupos favoritos y reservar rápidamente tus entradas con la mayor comodidad, también incluye un apartado de gestion de usuarios y eventos reservado para Administradores
 ---
 
 ## Stack :gear:
 
 <div align="center">
-<img src= "https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white"/>
-<img src= "https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white"/>
-<img src= "https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white"/>
-<img src= "https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white"/>
-<img src= "https://img.shields.io/badge/GIT-E44C30?style=for-the-badge&logo=git&logoColor=white"/>
+<img src= "https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB"/>
+<img src= "https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white"/>
+<img src= "https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E"/>
+<img src= "https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white"/>
+<img src= "https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white"/>
+<img src= "https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white"/>
 </div>
 
 ---
@@ -42,30 +45,17 @@ Hola!! aquí está la presentación de la parte de Backend del proyecto Live Mus
 - Clonar repositorio.
 
 - ```bash
-  git clone https://github.com/jluisferrer/LiveMusic-Backend/
+  git clone https://github.com/jluisferrer/LiveMusic-Frontend/
 ```
-- Install all the dependencies on the project
+- Instala las dependencias del proyecto:
 
 ```bash
-  composer install
-```
-- Configura tu .env, tienes un ejemplo en el archivo .env.example.
-- 
-- Ejecuta tu contenedor desde docker y conecta a este desde mySQL Workbench usando las credenciales configuradas en el archivo .env
-
-- Crea y rellena las tablas:
-  
-```bash
-php artisan migrate 
+  npm install
 ```
 
+- Lanza la APP:
 ```bash
-php artisan db:seed 
-```
-
-- Lanza la API:
-```bash
-composer artisan serve
+npm run dev
 ```
 
 ### 2 - Info to log
@@ -74,7 +64,6 @@ composer artisan serve
 
 ```json
 
-  _id: 1,
   email: "super@admin.com",
   password: "admin1234",
 
@@ -84,223 +73,74 @@ composer artisan serve
 
 ```json
 
-  _id: 2,
   email: "user@user.com",
   password: "123456",
 
 ```
 
-### 2 - Enpoints:
+### 2 - Vistas:
 
 1. Register and Login:
 
 - Register:
 
 ```
-localhost:8000/api/register
+http://localhost:5173/register
 ```
+![registerMovil](https://github.com/jluisferrer/LiveMusic-Frontend/assets/157707370/fc51797b-713b-451f-98fc-6441eac80abf)
 
-![register](https://github.com/jluisferrer/LiveMusic-Backend/assets/157707370/50913fde-2aef-4244-b19e-7c917b9ffd6d)
+![register](https://github.com/jluisferrer/LiveMusic-Frontend/assets/157707370/c46a254d-1146-4d14-a6ba-87a70f52ab03)
+
 
 - Login:
 
 ```
-localhost:8000/api/login
+http://localhost:5173/login
 ```
+![loginMovil](https://github.com/jluisferrer/LiveMusic-Frontend/assets/157707370/beeace18-adbb-4bf4-b38f-08d51b64d3da)
 
-![login](https://github.com/jluisferrer/LiveMusic-Backend/assets/157707370/e21aba18-3005-4774-ac0b-63b020abf74f)
+![login](https://github.com/jluisferrer/LiveMusic-Frontend/assets/157707370/10fdfd19-160a-49aa-aa67-1e62e155f1ef)
 
-
-2. User:
-
-- Get all users:
-
-Solo super Admin:
+- Home:
 
 ```
-localhost:8000/api/users
+http://localhost:5173/
 ```
-![getAllusers](https://github.com/jluisferrer/LiveMusic-Backend/assets/157707370/53f997f0-6ffa-4d2b-aac6-4ca972a5d638)
+![HomesinMovil](https://github.com/jluisferrer/LiveMusic-Frontend/assets/157707370/7d0ee94d-6899-4972-a062-1736bf030762)
+![HomeSin](https://github.com/jluisferrer/LiveMusic-Frontend/assets/157707370/d6c8d667-b4f6-4f7e-ac0e-20a4f024f4a5)
+![homemovil](https://github.com/jluisferrer/LiveMusic-Frontend/assets/157707370/250cb1bc-ba58-4eae-b161-87e1e345159b)
+![Home](https://github.com/jluisferrer/LiveMusic-Frontend/assets/157707370/c685f321-b711-4b9a-82cd-398a51d53f9b)
 
-- Get profile:
-
-Need user logging
-
-```
-localhost:8000/api/users/profile
-```
-![getUserProfile](https://github.com/jluisferrer/LiveMusic-Backend/assets/157707370/34ac975f-c976-4cf9-a604-194a37878147)
-
-- Delete user :
-
-Solo Super Admin
-```
-localhost:8000/api/users/{idUser}
-```
-![DeleteUser](https://github.com/jluisferrer/LiveMusic-Backend/assets/157707370/68e025c8-46d9-42e2-9acf-a207f3bf435b)
-
-- Update user :
+- Detalle evento:
 
 ```
-localhost:8000/api/users/update
+http://localhost:5173/detail
 ```
-![updateUser](https://github.com/jluisferrer/LiveMusic-Backend/assets/157707370/dcbf7875-905f-4fd4-9d23-972678214d13)
-
-- Add to group :
-
-```
-localhost:8000/api/users/addtoGroup
-```
-![AddtoGroup](https://github.com/jluisferrer/LiveMusic-Backend/assets/157707370/27ca5e92-f5e5-49db-a360-47422fa41a4f)
+![detalleMovil](https://github.com/jluisferrer/LiveMusic-Frontend/assets/157707370/02554b4f-0914-43e9-8813-7bd200baef0b)
+![Detalle](https://github.com/jluisferrer/LiveMusic-Frontend/assets/157707370/a5141e54-b542-47ca-8b01-dca868d8096d)
 
 
-3. Events:
-
-- Get all events:
-
-Need user logging
+- Profile:
 
 ```
-localhost:8000/api/events
+http://localhost:5173/profile
 ```
-![GetAllEvents](https://github.com/jluisferrer/LiveMusic-Backend/assets/157707370/cf4b12b0-6c66-4b6c-9960-82462c923b54)
+![profileMovil](https://github.com/jluisferrer/LiveMusic-Frontend/assets/157707370/bfb50ce0-b42e-4cdf-9901-851d6b2c1669)
+![Profile](https://github.com/jluisferrer/LiveMusic-Frontend/assets/157707370/f33d46d7-aa0c-457c-ab74-b36dc7e4ac79)
 
-
-- Create event:
-
-Solo Super Admin
+- Admin users:
 
 ```
-localhost:8000/api/events
+http://localhost:5173/admin
 ```
-![CreateEvent](https://github.com/jluisferrer/LiveMusic-Backend/assets/157707370/0b8bb69e-6647-4a3d-abc7-a48bd1dd6aaa)
+![adminUsers](https://github.com/jluisferrer/LiveMusic-Frontend/assets/157707370/8ef243d3-0882-44b6-9744-79f88265df0f)
 
-
-- Update Event:
-
-Solo Super Admin
+- Admin events:
 
 ```
-localhost:8000/api/events/{eventid}
+http://localhost:5173/admin2
 ```
-![updateEvent](https://github.com/jluisferrer/LiveMusic-Backend/assets/157707370/34adcca1-bbb4-4d31-b905-e3abf777e594)
-
-- Get Event by Id:
-
-```
-localhost:8000/api/events/{eventid}
-```
-
-![GetEventId](https://github.com/jluisferrer/LiveMusic-Backend/assets/157707370/c4617609-2d13-46c1-97a2-bfc2ee843860)
-
-
-- Delete Event:
-
-Solo Super Admin
-
-```
-localhost:8000/api/events/{id}
-```
-
-![DeleteEvent](https://github.com/jluisferrer/LiveMusic-Backend/assets/157707370/5d891241-216c-4a8e-b5fb-65e08f04b621)
-
-
-4. Groups:
-
-- Get all groups:
-
-Need user logging
-
-```
-localhost:8000/api/groups
-```
-
-![getAllGroups](https://github.com/jluisferrer/LiveMusic-Backend/assets/157707370/c3569aae-316b-4c79-b1ac-981cf43cff78)
-
-
-- Create group:
-
-Need user logging
-
-```
-localhost:8000/api/groups
-```
-![createGroup](https://github.com/jluisferrer/LiveMusic-Backend/assets/157707370/153c4846-a2ce-442f-a84c-2a808b99e02b)
-
-
-
-- Update group:
-
-Need user logging
-
-```
-localhost:8000/api/groups/{groupid}
-```
-
-![updateGroup](https://github.com/jluisferrer/LiveMusic-Backend/assets/157707370/3fb8467c-5662-47b9-8e33-42b5a1b707b4)
-
-- Get Group by Id:
-
-Need user logging
-
-```
-localhost:8000/api/groups/{groupid}
-```
-![getGroupId](https://github.com/jluisferrer/LiveMusic-Backend/assets/157707370/15052bd3-7de0-45c5-840c-6810dad3b872)
-
-- Delete group:
-
-Solo Super Admin
-
-```
-localhost:8000/api/groups/{groupid}
-```
-
-![deleteGroup](https://github.com/jluisferrer/LiveMusic-Backend/assets/157707370/f7f08c13-cc42-4326-9479-55d415dc3293)
-
-
-
-5. User Groups Events:
-
-- Get user events:
-
-```
-localhost:8000/api/usergroupevents
-```
-![getuserevents](https://github.com/jluisferrer/LiveMusic-Backend/assets/157707370/418bba03-8bf0-4867-ae07-4bad591a70da)
-
-
-- Get group events:
-
-```
-localhost:8000/api/usergroupevents/{groupid}
-```
-
-![getGroupevents](https://github.com/jluisferrer/LiveMusic-Backend/assets/157707370/b9eb740b-1b91-4143-a7a4-93ccccd3fd23)
-
-
-- Join user event:
-
-```
-localhost:8000/api/usergroupevents/{userid}
-```
-![JoinUserEvent](https://github.com/jluisferrer/LiveMusic-Backend/assets/157707370/1e80f6f7-2cfc-4b57-8a8d-ae8a16134c0e)
-
-
-- Join group event:
-
-```
-localhost:8000/api/usergroupevents/{groupid}/{eventid}
-```
-![JoingroupEvent](https://github.com/jluisferrer/LiveMusic-Backend/assets/157707370/2735df8f-8bb3-40cc-8e26-c140e8f574e4)
-
-
-- Delete user event:
-
-```
-localhost:8000/api/usergroupevents/{eventid}
-```
-![DeleteuserEvent](https://github.com/jluisferrer/LiveMusic-Backend/assets/157707370/ef1a4bf0-2f58-4766-842d-2e43d8b85b51)
+![adminEvents](https://github.com/jluisferrer/LiveMusic-Frontend/assets/157707370/0516d7fb-1d45-4946-8729-953e1e907dde)
 
 
 ---
