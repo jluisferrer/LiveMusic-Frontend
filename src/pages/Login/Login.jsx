@@ -73,7 +73,18 @@ export const Login = () => {
     }
     return (
         <div className="loginDesign">
-            <ToastContainer />
+            <ToastContainer 
+            position="top-left"
+            autoClose={1500}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="dark"
+            />
             <CInput className={`inputDesign ${userError.emailError !== "" ? "inputDesignError" : ""}`}
                 type="email"
                 name="email"

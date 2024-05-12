@@ -4,13 +4,23 @@ import { getAllUsers, deleteUser } from "../../services/apiCalls";
 import { useSelector } from "react-redux";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from "react-router-dom";
+
 
 export const Admin = () => {
+    const navigate = useNavigate();
+    const rdxUser = useSelector((state) => state.user);
     const [users, setUsers] = useState([]);
     const [page, setPage] = useState(1);
     const [lastPage, setLastPage] = useState(1); // Añade un estado para la última página
     const [nextPageUrl, setNextPageUrl] = useState(null); // Añade un estado para la URL de la próxima página
     const user = useSelector((state) => state.user.credentials);
+
+    useEffect(() => {
+        if (rdxUser?.credentials?.user?.role !== "super_admin") {
+            navigate("/"); 
+        }
+    }, [rdxUser]); 
 
     useEffect(() => {
         fetchUsers();
@@ -38,7 +48,18 @@ export const Admin = () => {
     };
     return (
         <div className="adminDesign">
-            <ToastContainer />
+            <ToastContainer
+             position="top-left"
+             autoClose={1500}
+             hideProgressBar={false}
+             newestOnTop={false}
+             closeOnClick
+             rtl={false}
+             pauseOnFocusLoss
+             draggable
+             pauseOnHover
+             theme="dark"
+            />
             <div className="adminDesign">
                 <table>
                     <thead>

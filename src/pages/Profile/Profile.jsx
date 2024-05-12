@@ -86,7 +86,6 @@ export const Profile = () => {
             const fetchUserEvents = async () => {
                 try {
                     const fetched = await GetUserEvents(user.token);
-                    toast.success("Events retrieved successfully");
                     
                     if (fetched.data) {
                         setUserEvents(fetched.data);
@@ -141,7 +140,18 @@ export const Profile = () => {
 
     return (
         <div className="profileDesign">
-            <ToastContainer />
+            <ToastContainer
+             position="top-left"
+             autoClose={1500}
+             hideProgressBar={false}
+             newestOnTop={false}
+             closeOnClick
+             rtl={false}
+             pauseOnFocusLoss
+             draggable
+             pauseOnHover
+             theme="dark"
+            />
             {user && (
                 <>
                     <CInput
@@ -182,7 +192,7 @@ export const Profile = () => {
             {userEvents.map((event, index) => (
                 <div key={`${event.id}-${index}`}>
                     <EventCard event={event} />
-                    <button className="removeEventButton" onClick={() => removeUserEvent(event.id)}>Remove</button>
+                    <button className="removeEventButton" onClick={() => removeUserEvent(event.id)}>Leave the event</button>
                 </div>
             ))}
         </div>

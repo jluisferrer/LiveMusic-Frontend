@@ -9,3 +9,17 @@
     justify-content: center;
     align-items: center;
 }
+
+.joinEventButton {
+    background-color: #1DB954;
+    color: white;
+    font-weight: bold;
+    display: inline-block;
+    border-radius: 2em;
+    /* margin-top: 1em; */
+}
+
+.joinEventButton:hover {
+    background-color: #1ED760;
+    cursor: pointer;
+}

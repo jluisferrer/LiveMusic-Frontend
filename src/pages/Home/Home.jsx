@@ -7,9 +7,11 @@ import { EventCard } from "../../common/EventCard/EventCard.jsx";
 import { updateDetail } from "../../slices/eventSlice.js";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { validame } from "../../utils/functions.js";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import YouTubePlayer from "react-player/youtube";
+import ReactPlayer from "react-player";
+
 
 export const Home = () => {
     const navigate = useNavigate();
@@ -29,7 +31,6 @@ export const Home = () => {
         const fetchData = async () => {
             try {
                 const fetched = await GetEvents(user.token);
-                toast.success("Events retrieved successfully");
                 if (fetched.data) {
                     setEvents(fetched.data);
                 } else {
@@ -61,9 +62,18 @@ export const Home = () => {
     if (!user) {
         return (
             <div className="homeDesign">
-                <h2>Welcome to our music events page!</h2>
-                <p>Please log in to see the events.</p>
-                {/* imágenes de bienvenida */}
+                <div>
+                    <h2>Welcome to our music events page!</h2>
+                </div>
+                
+                    <ReactPlayer
+                        url="https://www.youtube.com/watch?v=rDm0da8NhkQ"
+                        loop
+                        playing
+                        height={"75%"}
+                        width={"90%"}
+                    />
+            
             </div>
         );
     }
@@ -73,7 +83,18 @@ export const Home = () => {
 
     return (
         <div className="homeDesign">
-            <ToastContainer />
+            <ToastContainer
+                position="top-left"
+                autoClose={1500}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+            />
             {filteredEvents.map(event => (
                 <div key={event.id}>
                     <div onClick={() => manageDetail(event)}>
