@@ -43,7 +43,7 @@ export const Detail = () => {
         <div className="detailDesign">
             <DetailCard  >
             </DetailCard>
-            {!hasJoined && <button onClick={() => joinUserEvent(detailRdx.detail.id)}>
+            {!hasJoined && <button className="joinEventButton" onClick={() => joinUserEvent(detailRdx.detail.id)}>
                 Unirse al evento
             </button>}
             {successMessage && <p>{successMessage}</p>}
