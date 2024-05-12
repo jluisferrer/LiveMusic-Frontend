@@ -4,6 +4,7 @@ import "./Header.css"
 import React, { useEffect } from "react"
 import { logout} from "../../slices/userSlice"
 import { useNavigate } from "react-router-dom"
+import logo from "../../img/logo.jpg"
 
 export const Header = () => {
     const navigate = useNavigate()
@@ -15,6 +16,7 @@ export const Header = () => {
 
     return (
         <div className="headerDesign">
+             <img src={logo} alt="Logo" className="logoDesign" /> {/* Asegúrate de importar tu logo */}
             <CLink path="/" title="Home" />
             {rdxUser?.credentials?.token ? (
                 <div className="navigatorDesign">

@@ -69,7 +69,18 @@ export const Register = () => {
     };
     return (
         <div className="registerDesign">
-            <ToastContainer />
+            <ToastContainer
+             position="top-left"
+             autoClose={1500}
+             hideProgressBar={false}
+             newestOnTop={false}
+             closeOnClick
+             rtl={false}
+             pauseOnFocusLoss
+             draggable
+             pauseOnHover
+             theme="dark"
+            />
             {msg === "" ? (
                 <div className="registerDesign">
                     <div className="error">{msgError}</div>

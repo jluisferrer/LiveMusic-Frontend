@@ -6,8 +6,12 @@ import { CInput } from "../../common/CInput/CInput";
 import { validame } from "../../utils/functions";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { userData } from "../../slices/userSlice";
+import { useNavigate } from "react-router-dom";
 
 export const AdminEvents = () => {
+    const navigate = useNavigate();
+    const rdxUser = useSelector(userData);
     const [events, setEvents] = useState([]);
     const [eventNameInput, setEventNameInput] = useState("");
     const [eventDateInput, setEventDateInput] = useState("");
@@ -16,6 +20,12 @@ export const AdminEvents = () => {
     const [groups, setGroups] = useState([]); // Estado para almacenar todos los grupos
     const [selectedGroup, setSelectedGroup] = useState(null); // Estado para almacenar el grupo seleccionado
     const user = useSelector((state) => state.user.credentials);
+    
+    useEffect(() => {
+        if (rdxUser?.credentials?.user?.roleName !== "super_admin") {
+          navigate("/");
+        }
+      }, [rdxUser]);
 
     const [eventError, setEventError] = useState({
         eventNameError: "",
@@ -166,8 +176,18 @@ export const AdminEvents = () => {
 
     return (
         <div className="adminEventDesign">
-            <ToastContainer />
-            {/* <h2>Events</h2> */}
+            <ToastContainer
+             position="top-left"
+             autoClose={1500}
+             hideProgressBar={false}
+             newestOnTop={false}
+             closeOnClick
+             rtl={false}
+             pauseOnFocusLoss
+             draggable
+             pauseOnHover
+             theme="dark"
+            />
             <div className="modfyEvents">
                 <div>
                     <label>Event Name:</label>

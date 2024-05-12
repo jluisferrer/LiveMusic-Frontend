@@ -141,7 +141,18 @@ export const Profile = () => {
 
     return (
         <div className="profileDesign">
-            <ToastContainer />
+            <ToastContainer
+             position="top-left"
+             autoClose={1500}
+             hideProgressBar={false}
+             newestOnTop={false}
+             closeOnClick
+             rtl={false}
+             pauseOnFocusLoss
+             draggable
+             pauseOnHover
+             theme="dark"
+            />
             {user && (
                 <>
                     <CInput
