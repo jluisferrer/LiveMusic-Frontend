@@ -6,12 +6,11 @@ import { CInput } from "../../common/CInput/CInput";
 import { validame } from "../../utils/functions";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { userData } from "../../slices/userSlice";
 import { useNavigate } from "react-router-dom";
 
 export const AdminEvents = () => {
     const navigate = useNavigate();
-    const rdxUser = useSelector(userData);
+    const rdxUser = useSelector((state) => state.user);
     const [events, setEvents] = useState([]);
     const [eventNameInput, setEventNameInput] = useState("");
     const [eventDateInput, setEventDateInput] = useState("");
@@ -20,12 +19,13 @@ export const AdminEvents = () => {
     const [groups, setGroups] = useState([]); // Estado para almacenar todos los grupos
     const [selectedGroup, setSelectedGroup] = useState(null); // Estado para almacenar el grupo seleccionado
     const user = useSelector((state) => state.user.credentials);
-    
-    useEffect(() => {
-        if (rdxUser?.credentials?.user?.roleName !== "super_admin") {
-          navigate("/");
+
+     useEffect(() => {
+        if (rdxUser?.credentials?.user?.role !== "super_admin") {
+            navigate("/"); 
         }
-      }, [rdxUser]);
+    }, [rdxUser]); 
+
 
     const [eventError, setEventError] = useState({
         eventNameError: "",

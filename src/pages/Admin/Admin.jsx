@@ -5,11 +5,11 @@ import { useSelector } from "react-redux";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from "react-router-dom";
-import { userData } from "../../slices/userSlice";
+
 
 export const Admin = () => {
     const navigate = useNavigate();
-    const rdxUser = useSelector(userData);
+    const rdxUser = useSelector((state) => state.user);
     const [users, setUsers] = useState([]);
     const [page, setPage] = useState(1);
     const [lastPage, setLastPage] = useState(1); // Añade un estado para la última página
@@ -17,10 +17,10 @@ export const Admin = () => {
     const user = useSelector((state) => state.user.credentials);
 
     useEffect(() => {
-        if (rdxUser?.credentials?.user?.roleName !== "super_admin") {
-          navigate("/");
+        if (rdxUser?.credentials?.user?.role !== "super_admin") {
+            navigate("/"); 
         }
-      }, [rdxUser]);
+    }, [rdxUser]); 
 
     useEffect(() => {
         fetchUsers();

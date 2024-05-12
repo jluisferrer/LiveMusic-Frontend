@@ -31,7 +31,6 @@ export const Home = () => {
         const fetchData = async () => {
             try {
                 const fetched = await GetEvents(user.token);
-                toast.success("Events retrieved successfully");
                 if (fetched.data) {
                     setEvents(fetched.data);
                 } else {
