@@ -18,7 +18,7 @@
 
 ## Description :classical_building:
 
-Hola!! esta es la presentación de la parte de Frontend del proyecto Live Music, al registrarte accederás un sitio en el que podrás personalizar tu perfil y estar informad@ de las últimas novedades en festivales con tus grupos favoritos y reservar rápidamente tus entradas con la mayor comodidad, también incluye un apartado de gestion de usuarios y eventos reservado para Administradores
+Hola!! esta es la presentación de la parte de Frontend del proyecto Live Music, al registrarte y acceder al sitio podrás personalizar tu perfil, estar informad@ de las últimas novedades en festivales de tus grupos favoritos y reservar rápidamente tus entradas con la mayor comodidad. También incluye un apartado de gestión de usuarios y eventos reservado para Administradores.
 ---
 
 ## Stack :gear:
@@ -35,7 +35,7 @@ Hola!! esta es la presentación de la parte de Frontend del proyecto Live Music,
 ---
 
 ## Project :open_book:
-
+-Conexion con el proyecto Backend: https://github.com/jluisferrer/LiveMusic-Backend
 
 ![Diagrama](https://github.com/jluisferrer/LiveMusic-Backend/assets/157707370/24f2d212-61d9-41d3-bef6-2d1f3a51cba0)
 
@@ -44,7 +44,7 @@ Hola!! esta es la presentación de la parte de Frontend del proyecto Live Music,
 
 - Clonar repositorio.
 
-- ```bash
+```bash
   git clone https://github.com/jluisferrer/LiveMusic-Frontend/
 ```
 - Instala las dependencias del proyecto:
@@ -143,6 +143,8 @@ http://localhost:5173/admin2
 ![adminEvents](https://github.com/jluisferrer/LiveMusic-Frontend/assets/157707370/0516d7fb-1d45-4946-8729-953e1e907dde)
 
 - Check errors:
+
+  
 ![checkErrors](https://github.com/jluisferrer/LiveMusic-Frontend/assets/157707370/ef99a431-8c18-418a-8be8-86c1b9a4378a)
 
 ---
@@ -168,9 +170,12 @@ http://localhost:5173/admin2
 ## Author :wave:
 
 
+- **JOSE LUIS FERRER**
 
-  ||<img src="https://github.com/jluisferrer.png" width="60px;"/>|
-  |<a href="https://github.com/jluisferrer">Jose Ferrer</a>|
+
+<a href="https://linkedin.com/in/jose-luis-ferrer-martinez/" target="blank"><img align="left" src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"/></a>
+
+<a href="https://github.com/jluisferrer/" target="blank"><img align="left" src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" alt="jose-luis-ferrer-martinez/"/></a>
 
 ---
 
