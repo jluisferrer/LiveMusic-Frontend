@@ -1,4 +1,4 @@
-![register](https://github.com/jluisferrer/LiveMusic-Frontend/assets/157707370/d9329e0e-bbb9-4099-92df-bd7ae5618b5e)<h1 align="center"> PROJECT FRONTEND: Live Music </h1>
+<h1 align="center"> PROJECT FRONTEND: Live Music </h1>
 
 <p align="center">
   <img src="./public/img/title_Readme.gif" alt="Demostración de funcionalidad">
@@ -10,8 +10,8 @@
 1. [Description :classical_building:](#description-classical_building)
 2. [Stack :gear:](#stack-gear)
 3. [Project :open_book:](#Project-open_book)
-4. [Libraries :open_book:](#Project-open_book)
-5. [Future implementations :chart_with_upwards_trend:](#Future implementations-chart_with_upwards_trend)
+4. [Libraries :books:](#Project-books)
+5. [Improvements :chart_with_upwards_trend:](#Improvements)
 6. [Author :wave:](#author-wave)
 
 ---
@@ -142,6 +142,26 @@ http://localhost:5173/admin2
 ```
 ![adminEvents](https://github.com/jluisferrer/LiveMusic-Frontend/assets/157707370/0516d7fb-1d45-4946-8729-953e1e907dde)
 
+- Check errors:
+![checkErrors](https://github.com/jluisferrer/LiveMusic-Frontend/assets/157707370/ef99a431-8c18-418a-8be8-86c1b9a4378a)
+
+---
+## Libraries
+- React player:
+![ReactPlayer](https://github.com/jluisferrer/LiveMusic-Frontend/assets/157707370/453d9b7f-54fd-4b0a-9b67-c0f47a4dce3e)
+
+- React toastify
+![Toastify](https://github.com/jluisferrer/LiveMusic-Frontend/assets/157707370/bdb9cbde-2d30-4572-a0c4-9de6b4b0cf0b)
+
+---
+## Improvements
+### Futuras mejoras e implementaciones:
+
+- Mejoras generales de diseño
+- Sistema de transacciones para compra de entradas
+- Nuevas vistas y funcionalidades para usuarios con rol "group"
+- Nuevo panel administracion para usuarios con rol "admin_group"
+- Diseño responsive para usuarios administradores
 
 ---
 
