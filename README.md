@@ -1,5 +1,11 @@
 <h1 align="center"> PROJECT FRONTEND: Live Music </h1>
 
+<div align="center">
+    
+![portada](https://github.com/jluisferrer/LiveMusic-Backend/assets/157707370/c5f37ec4-eb76-4cce-9142-3b57375524a9)
+
+</div>
+
 <p align="center">
   <img src="./public/img/title_Readme.gif" alt="Demostración de funcionalidad">
 </p>
