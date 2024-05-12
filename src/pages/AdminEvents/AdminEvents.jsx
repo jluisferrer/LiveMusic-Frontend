@@ -13,6 +13,7 @@ export const AdminEvents = () => {
     const rdxUser = useSelector((state) => state.user);
     const [events, setEvents] = useState([]);
     const [eventNameInput, setEventNameInput] = useState("");
+    const [eventDescriptionInput, setEventDescriptionInput] = useState("");
     const [eventDateInput, setEventDateInput] = useState("");
     const [eventLocationInput, setEventLocationInput] = useState("");
     const [selectedEvent, setSelectedEvent] = useState(null);
@@ -20,11 +21,11 @@ export const AdminEvents = () => {
     const [selectedGroup, setSelectedGroup] = useState(null); // Estado para almacenar el grupo seleccionado
     const user = useSelector((state) => state.user.credentials);
 
-     useEffect(() => {
+    useEffect(() => {
         if (rdxUser?.credentials?.user?.role !== "super_admin") {
-            navigate("/"); 
+            navigate("/");
         }
-    }, [rdxUser]); 
+    }, [rdxUser]);
 
 
     const [eventError, setEventError] = useState({
@@ -108,16 +109,18 @@ export const AdminEvents = () => {
         try {
             // Valida los campos de entrada antes de crear el evento
             const eventNameError = validame("eventName", eventNameInput);
+            const eventDescriptionError = validame("eventDescrition", eventDescriptionInput);
             const eventDateError = validame("eventDate", eventDateInput);
             const eventLocationError = validame("eventLocation", eventLocationInput);
 
-            if (eventNameError || eventDateError || eventLocationError) {
+            if (eventNameError || eventDateError || eventLocationError || eventDescriptionError) {
                 toast.error("Error: Invalid input");
                 return;
             }
 
             const eventData = {
                 eventName: eventNameInput,
+                eventDescription: eventDescriptionInput,
                 eventDate: eventDateInput,
                 location: eventLocationInput
             };
@@ -128,6 +131,7 @@ export const AdminEvents = () => {
             setEventNameInput("");
             setEventDateInput("");
             setEventLocationInput("");
+            setEventDescriptionInput("");
         } catch (error) {
             return error;
         }
@@ -138,6 +142,7 @@ export const AdminEvents = () => {
         setEventNameInput(event.eventName);
         setEventDateInput(event.eventDate);
         setEventLocationInput(event.location);
+        setEventDescriptionInput(event.eventDescription);
     };
 
     const eventUpdate = async () => {
@@ -145,7 +150,8 @@ export const AdminEvents = () => {
             const updatedEventData = {
                 eventName: eventNameInput,
                 eventDate: eventDateInput,
-                location: eventLocationInput
+                location: eventLocationInput,
+                eventDescription: eventDescriptionInput
             };
             try {
                 await updateEvent(selectedEvent.id, updatedEventData, user.token);
@@ -154,7 +160,8 @@ export const AdminEvents = () => {
                 setSelectedEvent(null);
                 setEventNameInput("");
                 setEventDateInput("");
-                setEventLocationInput("");  // Limpia el evento seleccionado después de actualizar
+                setEventLocationInput("");
+                setEventDescriptionInput("");
             } catch (error) {
                 return error;
             }
@@ -177,16 +184,16 @@ export const AdminEvents = () => {
     return (
         <div className="adminEventDesign">
             <ToastContainer
-             position="top-left"
-             autoClose={1500}
-             hideProgressBar={false}
-             newestOnTop={false}
-             closeOnClick
-             rtl={false}
-             pauseOnFocusLoss
-             draggable
-             pauseOnHover
-             theme="dark"
+                position="top-left"
+                autoClose={1500}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
             />
             <div className="modfyEvents">
                 <div>
@@ -199,6 +206,17 @@ export const AdminEvents = () => {
                         value={eventNameInput || ""}
                         changeEmit={(e) => setEventNameInput(e.target.value)}
                         onBlurFunction={() => checkError("eventName", eventNameInput)}
+                    />
+                </div>
+                <div>
+                    <label>Event Description:</label>
+                    <CInput
+                        className={`inputDesign ${eventError.eventDescriptionError !== "" ? "inputDesignError" : ""}`}
+                        type="text"
+                        placeholder={"Event Description"}
+                        value={eventDescriptionInput || ""}
+                        changeEmit={(e) => setEventDescriptionInput(e.target.value)}
+                        onBlurFunction={() => checkError("eventDescription", eventDescriptionInput)}
                     />
                 </div>
                 <div>
@@ -253,6 +271,7 @@ export const AdminEvents = () => {
                             <tr key={event.id} onClick={() => selectEvent(event)}>
                                 <td>{event.id}</td>
                                 <td>{event.eventName}</td>
+                                {/* <td>{event.eventDescription}</td> falta ajustar tabla para que se muestre bien */} 
                                 <td>{event.eventDate}</td>
                                 <td>{event.location}</td>
                                 <td>
