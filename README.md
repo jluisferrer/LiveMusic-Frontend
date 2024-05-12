@@ -169,13 +169,13 @@ http://localhost:5173/admin2
 
 ## Author :wave:
 
-
-- **JOSE LUIS FERRER**
+**JOSE LUIS FERRER**
 
 
 <a href="https://linkedin.com/in/jose-luis-ferrer-martinez/" target="blank"><img align="left" src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"/></a>
 
 <a href="https://github.com/jluisferrer/" target="blank"><img align="left" src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" alt="jose-luis-ferrer-martinez/"/></a>
+
 
 ---
 
