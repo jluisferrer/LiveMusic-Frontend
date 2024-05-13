@@ -168,6 +168,7 @@ http://localhost:5173/admin2
 ## Improvements
 ### Futuras mejoras e implementaciones:
 
+- Añadir imagenes para profile, eventos y grupos
 - Mejoras generales de diseño
 - Sistema de transacciones para compra de entradas
 - Nuevas vistas y funcionalidades para usuarios con rol "group"
