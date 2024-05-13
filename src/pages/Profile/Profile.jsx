@@ -20,6 +20,7 @@ export const Profile = () => {
     const [name, setName] = useState(user?.user?.name || " ");
     const [email, setEmail] = useState(user?.user?.email || " ");
     const [password, setPassword] = useState(user?.user?.password || " ");
+    const [toastShown, setToastShown] = useState(false);
 
     const [userError, setUserError] = useState({
         nameError: "",
@@ -133,10 +134,16 @@ export const Profile = () => {
             [name + "Error"]: error,
         }));
 
-        if (error) {
+        if (error && !toastShown) {
             toast.error(error);
+            setToastShown(true);
         }
     };
+
+    useEffect(() => {
+        // Restablece toastShown a false cuando el usuario cambia
+        setToastShown(false);
+    }, [user]);
 
     return (
         <div className="profileDesign">
@@ -151,6 +158,7 @@ export const Profile = () => {
              draggable
              pauseOnHover
              theme="dark"
+             limit={1}
             />
             {user && (
                 <>

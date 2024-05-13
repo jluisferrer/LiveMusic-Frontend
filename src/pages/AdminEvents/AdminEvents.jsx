@@ -194,6 +194,7 @@ export const AdminEvents = () => {
                 draggable
                 pauseOnHover
                 theme="dark"
+                limit={1}
             />
             <div className="modfyEvents">
                 <div>

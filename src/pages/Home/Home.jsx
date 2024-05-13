@@ -70,6 +70,7 @@ export const Home = () => {
                         url="https://www.youtube.com/watch?v=rDm0da8NhkQ"
                         loop
                         playing
+                        controls = {true}
                         height={"75%"}
                         width={"90%"}
                     />
@@ -94,6 +95,7 @@ export const Home = () => {
                 draggable
                 pauseOnHover
                 theme="dark"
+                limit={1}
             />
             {filteredEvents.map(event => (
                 <div key={event.id}>

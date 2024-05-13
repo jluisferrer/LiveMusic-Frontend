@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { DetailCard } from "../../common/CardDetail/DetailCard";
 import { JoinEvent } from "../../services/apiCalls";
+import { toast, ToastContainer } from "react-toastify";
 
 export const Detail = () => {
     const detailRdx = useSelector(detailData);
@@ -32,6 +33,7 @@ export const Detail = () => {
             setJoinedEvents([...joinedEvents, eventId]);
 
             setSuccessMessage("You have joined the event!");
+            toast.success("User joined event");
 
             setHasJoined(true);
         } catch (error) {
@@ -41,6 +43,19 @@ export const Detail = () => {
     return (
         detailRdx &&
         <div className="detailDesign">
+            <ToastContainer
+                position="top-left"
+                autoClose={1500}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+                limit={1}
+            />
             <DetailCard  >
             </DetailCard>
             {!hasJoined && <button className="joinEventButton" onClick={() => joinUserEvent(detailRdx.detail.id)}>

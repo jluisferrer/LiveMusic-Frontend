@@ -59,6 +59,7 @@ export const Admin = () => {
              draggable
              pauseOnHover
              theme="dark"
+             limit={1}
             />
             <div className="adminDesign">
                 <table>
