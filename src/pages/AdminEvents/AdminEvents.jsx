@@ -262,7 +262,8 @@ export const AdminEvents = () => {
                         <tr>
                             <th>ID</th>
                             <th>Event Name</th>
-                            <th>Date</th>
+                            <th>Description</th>
+                            <th>Date</th>                            
                             <th>Location</th>
                             <th>Action</th>
                         </tr>
@@ -272,7 +273,7 @@ export const AdminEvents = () => {
                             <tr key={event.id} onClick={() => selectEvent(event)}>
                                 <td>{event.id}</td>
                                 <td>{event.eventName}</td>
-                                {/* <td>{event.eventDescription}</td> falta ajustar tabla para que se muestre bien */} 
+                                <td>{event.eventDescription}</td> 
                                 <td>{event.eventDate}</td>
                                 <td>{event.location}</td>
                                 <td>
