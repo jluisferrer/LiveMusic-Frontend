@@ -9,9 +9,7 @@ import { toast, ToastContainer } from "react-toastify";
 
 export const Detail = () => {
     const detailRdx = useSelector(detailData);
-    console.log(detailRdx, "detailRdx");
     const rdxUser = useSelector((state) => state.user.credentials);
-    console.log(rdxUser, "rdxUser");
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -27,7 +25,6 @@ export const Detail = () => {
     const joinUserEvent = async (eventId) => {
         try {
             const fetched = await JoinEvent(eventId, rdxUser.token);
-            console.log(fetched, "fetched join event");
 
             // Agrega el evento unido a la lista de eventos joinedos
             setJoinedEvents([...joinedEvents, eventId]);
