@@ -11,14 +11,16 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import YouTubePlayer from "react-player/youtube";
 import ReactPlayer from "react-player";
+import { updateUserJoinedEvents, userJoinedEventsData } from "../../slices/userEventSlice.js";
 
 
 export const Home = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [events, setEvents] = useState([]);
-    const [joinedEvents, setJoinedEvents] = useState([]); // Lista de eventos a los que el usuario se ha unido
+    const [joinedEvents, setJoinedEvents] = useState([]); 
     const user = useSelector((state) => state.user.credentials);
+    const userJoinedEvents = useSelector(userJoinedEventsData);
 
     const manageDetail = (event) => {
         dispatch(updateDetail({ detail: event }));
@@ -49,15 +51,17 @@ export const Home = () => {
 
     const joinUserEvent = async (eventId) => {
         try {
-            await JoinEvent(eventId, user.token);
-
-            // Agrega el evento unido a la lista de eventos joinedos
-            setJoinedEvents([...joinedEvents, eventId]);
+            await JoinEvent(eventId, user.token); 
+            const newUserJoinedEvents = [...userJoinedEvents, eventId];  // Agrega el evento unido a la lista de eventos
+            dispatch(updateUserJoinedEvents(newUserJoinedEvents)); // Actualiza los eventos unidos en Redux
+    
             toast.success("User joined event");
         } catch (error) {
             toast.error("Error joining user to event");
         }
     };
+    
+
 
     if (!user) {
         return (
@@ -79,8 +83,7 @@ export const Home = () => {
         );
     }
 
-    // Filtra los eventos que el usuario ya ha joinedo
-    const filteredEvents = events.filter(event => !joinedEvents.includes(event.id));
+    const filteredEvents = events.filter(event => !userJoinedEvents.includes(event.id));
 
     return (
         <div className="homeDesign">
