@@ -16,5 +16,7 @@
 body {
   margin: 0;
   padding: 0;
-  background-image: "src/img/fondo.jpg";
+  background-image: url("src/img/fondo.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
 }
