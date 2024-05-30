@@ -33,7 +33,7 @@ export const Admin = () => {
             setLastPage(response.data.last_page); // Guarda la última página
             setNextPageUrl(response.data.next_page_url); // Guarda la URL de la próxima página
         } catch (error) {
-            console.log(error);
+            toast.error("Error fetching users");
         }
     };
 
@@ -59,6 +59,7 @@ export const Admin = () => {
              draggable
              pauseOnHover
              theme="dark"
+             limit={1}
             />
             <div className="adminDesign">
                 <table>

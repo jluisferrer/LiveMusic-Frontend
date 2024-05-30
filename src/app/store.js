@@ -5,20 +5,22 @@ import { thunk } from "redux-thunk";
 import storage from "redux-persist/lib/storage";
 import userSlice from "../slices/userSlice";
 import eventSlice from "../slices/eventSlice";
+import userEventSlice from "../slices/userEventSlice";
 
-const reducers = combineReducers({  //combina los slices
+const reducers = combineReducers({  
   user: userSlice,
   detail: eventSlice,
+  userEvents: userEventSlice,
 });
 
-const persistConfig = {  //encripta el estado de la aplicacion en el storage
+const persistConfig = {  
   key: "root",
   storage,
 };
 
-const persistedReducer = persistReducer(persistConfig, reducers); //ejecutamos persistConfig y reducer
+const persistedReducer = persistReducer(persistConfig, reducers); 
 
-export default configureStore({   //Envuelve lo que guardes en local storage y lo encripta
+export default configureStore({   
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

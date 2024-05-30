@@ -51,9 +51,8 @@ export const Login = () => {
         try {
             const fetched = await LoginUser(user);
             if (fetched.token) {
-                // Hacer la petición a /profile
+                // Hacer la petición a profile
                 const profile = await GetUserProfile(fetched.token);
-                console.log(profile);
 
                 // Guardar los datos del perfil en el estado de Redux
                 const passport = {

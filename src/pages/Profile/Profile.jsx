@@ -10,6 +10,7 @@ import { login } from "../../slices/userSlice"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { validame } from "../../utils/functions"
+import { updateUserJoinedEvents, userJoinedEventsData } from "../../slices/userEventSlice"
 
 export const Profile = () => {
     const [userEvents, setUserEvents] = useState([]);
@@ -20,6 +21,8 @@ export const Profile = () => {
     const [name, setName] = useState(user?.user?.name || " ");
     const [email, setEmail] = useState(user?.user?.email || " ");
     const [password, setPassword] = useState(user?.user?.password || " ");
+    const [toastShown, setToastShown] = useState(false);
+    const userJoinedEvents = useSelector(userJoinedEventsData);
 
     const [userError, setUserError] = useState({
         nameError: "",
@@ -44,35 +47,28 @@ export const Profile = () => {
 
     const handleSave = async () => {
         try {
-            // Valida los campos de entrada antes de guardar
             const nameError = validame("name", name);
             const emailError = validame("email", email);
             // const passwordError = validame("password", password);
 
             if (nameError || emailError) {
-                // Si hay algún error, muestra un mensaje y detiene la ejecución
                 toast.error("Error: Invalid input");
                 return;
             }
 
-            // Objeto para enviar al backend
             const updatedUserData = {
                 name,
                 email,
-                password // enviar solo la contraseña si se ha cambiado
+                password
             };
 
-            // Realizar la llamada al backend para actualizar el perfil
             const updatedUser = await updateUser(updatedUserData, user.token);
             toast.success("Profile updated successfully");
 
-            // Actualizar el estado del usuario con los datos del usuario actualizado
             setEditMode(false);
 
-            // Obtener los datos actualizados del perfil
             const profile = await GetUserProfile(user.token);
 
-            // Actualizar el estado de Redux con los nuevos datos del perfil
             dispatch(login({ credentials: { token: user.token, user: profile.data } }));
         } catch (error) {
             toast.error("Error updating profile");
@@ -86,15 +82,15 @@ export const Profile = () => {
             const fetchUserEvents = async () => {
                 try {
                     const fetched = await GetUserEvents(user.token);
-                    
+
                     if (fetched.data) {
                         setUserEvents(fetched.data);
                     } else {
-                        setUserEvents([]); // Establece el estado como un array vacío si fetched.data es undefined
+                        setUserEvents([]);
                     }
                 } catch (error) {
                     toast.error("Error retrieving events");
-                   
+
                 }
             }
             fetchUserEvents();
@@ -102,18 +98,23 @@ export const Profile = () => {
     }, [user])
 
     useEffect(() => {
-        // Actualiza el nombre y el correo electrónico cuando cambia el usuario en el estado
         setName(user ? user.user.name : "");
         setEmail(user ? user.user.email : "");
     }, [user]);
+
+
+
 
     const removeUserEvent = async (eventId) => {
         try {
             const response = await deleteUserEvent(eventId, user.token);
             if (response.success) {
-                // Actualizar la lista de eventos del usuario después de eliminar el evento
                 const updatedEvents = userEvents.filter((event) => event.id !== eventId);
                 setUserEvents(updatedEvents);
+
+                const updatedJoinedEvents = userJoinedEvents.filter((id) => id !== eventId);
+                dispatch(updateUserJoinedEvents(updatedJoinedEvents));
+
                 toast.success("Event removed successfully");
             } else {
                 console.error(response.message);
@@ -123,7 +124,6 @@ export const Profile = () => {
             console.error("Error removing event:", error);
         }
     };
-
     const checkError = (name, value) => {
         value = value || "";
         const error = validame(name, value);
@@ -133,24 +133,30 @@ export const Profile = () => {
             [name + "Error"]: error,
         }));
 
-        if (error) {
+        if (error && !toastShown) {
             toast.error(error);
+            setToastShown(true);
         }
     };
+
+    useEffect(() => {
+        setToastShown(false);
+    }, [user]);
 
     return (
         <div className="profileDesign">
             <ToastContainer
-             position="top-left"
-             autoClose={1500}
-             hideProgressBar={false}
-             newestOnTop={false}
-             closeOnClick
-             rtl={false}
-             pauseOnFocusLoss
-             draggable
-             pauseOnHover
-             theme="dark"
+                position="top-left"
+                autoClose={1500}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+                limit={1}
             />
             {user && (
                 <>
